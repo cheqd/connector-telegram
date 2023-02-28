@@ -1,0 +1,13 @@
+compact: false
+directory:
+  - ./digital-ocean
+  - ./hetzner
+download-external-modules: true 
+evaluate-variables: true 
+external-modules-download-path: .external_modules 
+framework:
+  - all 
+output: cli 
+repo-id: cheqd/cheqd-infra
+skip-fixes: false
+soft-fail: false
