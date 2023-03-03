@@ -2,7 +2,7 @@
 ###    STAGE 1: Build LogTo runner with customisations      ###
 ###############################################################
 
-FROM ghcr.io/logto-io/logto:1.0.0-rc.3 as runner
+FROM ghcr.io/logto-io/logto:prerelease as runner
 
 # Set working directory & bash defaults
 WORKDIR /etc/logto
