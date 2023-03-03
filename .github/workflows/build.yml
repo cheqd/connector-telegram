@@ -10,7 +10,7 @@ jobs:
 
   build-docker:
     # Doing a build at this stage will create reusable cache layers for release workflow
-    name: "Logto Docker image with built-in custom connectors"
+    name: "Custom LogTo Docker image"
     runs-on: ubuntu-latest
     env:
       IMAGE_NAME: ${{ github.repository }}
@@ -47,8 +47,7 @@ jobs:
           outputs: type=docker,dest=/tmp/logto.tar
           cache-from: type=gha
           cache-to: type=gha,mode=min
-            
-
+      
       - name: Upload Docker test image
         uses: actions/upload-artifact@v3
         with:
