@@ -1,0 +1,29 @@
+name: "Build & Test"
+on:
+  workflow_call:
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  
+  run-tests:
+      name: "Run tests"
+      runs-on: ubuntu-latest
+
+      steps:
+        - uses: actions/checkout@v3
+
+        - uses: actions/setup-node@v3
+          with:
+            node-version: 18
+            cache: 'npm'
+
+        - name: "Install dependencies"
+          run: npm install --immutable
+
+        - name: "Execute build"
+          run: npm run build
+
+        - name: "Execute tests"
+          run: npm run test

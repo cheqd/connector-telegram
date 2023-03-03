@@ -21,6 +21,8 @@ ARG PORT=3001
 ARG ADMIN_PORT=3002
 ARG ADMIN_DISABLE_LOCALHOST=false
 ARG TRUST_PROXY_HEADER=true
+ARG ADMIN_ENDPOINT
+ARG ENDPOINT
 
 # Run-time environment variables
 ENV NODE_ENV ${NODE_ENV}
@@ -29,6 +31,8 @@ ENV PORT ${PORT}
 ENV ADMIN_PORT ${ADMIN_PORT}
 ENV ADMIN_DISABLE_LOCALHOST ${ADMIN_DISABLE_LOCALHOST}
 ENV TRUST_PROXY_HEADER ${TRUST_PROXY_HEADER}
+ENV ADMIN_ENDPOINT ${ADMIN_ENDPOINT}
+ENV ENDPOINT ${ENDPOINT}
 
 # Change ownership of working directory
 RUN chown -R node:node ${WORKDIR}
@@ -41,4 +45,4 @@ USER node
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
 # Run the application
-ENTRYPOINT [ "npm run cli db seed -- --swe && npm start" ]
+CMD [ "npm start" ]
