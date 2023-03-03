@@ -17,7 +17,6 @@ jobs:
     if: ${{ github.ref_name == 'main' }}
     env:
       IMAGE_NAME: ${{ github.repository }}
-      env_var: ${{ vars.ENV_CONTEXT_VAR }
     environment: 
       name: production
       url: https://auth.creds.xyz
@@ -69,9 +68,6 @@ jobs:
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=min
-          build-args: |
-            ADMIN_ENDPOINT: ${vars.ADMIN_ENDPOINT}
-            ENDPOINT: ${vars.ENDPOINT}
 
       - name: Push Logto image
         run: docker image push --all-tags registry.digitalocean.com/${{ env.IMAGE_NAME }}
