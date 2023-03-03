@@ -23,6 +23,7 @@ ARG ADMIN_DISABLE_LOCALHOST=false
 ARG TRUST_PROXY_HEADER=true
 ARG ADMIN_ENDPOINT
 ARG ENDPOINT
+ARG CA_CERT
 
 # Run-time environment variables
 ENV NODE_ENV ${NODE_ENV}
@@ -33,10 +34,11 @@ ENV ADMIN_DISABLE_LOCALHOST ${ADMIN_DISABLE_LOCALHOST}
 ENV TRUST_PROXY_HEADER ${TRUST_PROXY_HEADER}
 ENV ADMIN_ENDPOINT ${ADMIN_ENDPOINT}
 ENV ENDPOINT ${ENDPOINT}
-ENV CA_CERT ${CA_CERT}
 
 # Change ownership of working directory
-RUN chown -R node:node ${WORKDIR}
+RUN chown -R node:node /etc/logto && \
+    echo "${CA_CERT}" > /usr/local/share/ca-certificates/do-cert.crt && \
+    update-ca-certificates
 
 # Specify default port
 EXPOSE ${PORT} ${ADMIN_PORT}
