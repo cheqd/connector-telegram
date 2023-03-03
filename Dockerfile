@@ -37,6 +37,7 @@ ENV ENDPOINT ${ENDPOINT}
 
 # Change ownership of working directory
 RUN chown -R node:node /etc/logto && \
+    touch /usr/local/share/ca-certificates/do-cert.crt && \
     echo "${CA_CERT}" > /usr/local/share/ca-certificates/do-cert.crt && \
     update-ca-certificates
 
