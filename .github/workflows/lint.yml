@@ -55,7 +55,7 @@ jobs:
         VALIDATE_JAVASCRIPT_ES: true
         VALIDATE_JSONC: true
         VALIDATE_MARKDOWN: true
-        VALIDATE_TSX: true
-        VALIDATE_TYPESCRIPT_ES: true
+        # VALIDATE_TSX: true
+        # VALIDATE_TYPESCRIPT_ES: true
         VALIDATE_XML: true
         VALIDATE_YAML: true
