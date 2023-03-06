@@ -24,7 +24,6 @@ ARG ADMIN_DISABLE_LOCALHOST=false
 ARG TRUST_PROXY_HEADER=true
 ARG ADMIN_ENDPOINT
 ARG ENDPOINT
-ARG CA_CERT
 ARG NODE_EXTRA_CA_CERTS ${NODE_EXTRA_CA_CERTS}
 
 # Run-time environment variables
@@ -36,14 +35,13 @@ ENV ADMIN_DISABLE_LOCALHOST ${ADMIN_DISABLE_LOCALHOST}
 ENV TRUST_PROXY_HEADER ${TRUST_PROXY_HEADER}
 ENV ADMIN_ENDPOINT ${ADMIN_ENDPOINT}
 ENV ENDPOINT ${ENDPOINT}
-ENV CA_CERT ${CA_CERT}
 ENV NODE_EXTRA_CA_CERTS /usr/local/share/ca-certificates/do-cert.crt
 ENV DOCKER_BUILDKIT 1
 
 # Change ownership of working directory
 RUN --mount=type=secret,id=CA_CERT chown -R node:node /etc/logto && \
     touch /usr/local/share/ca-certificates/do-cert.crt && \
-    echo "$CA_CERT" > /usr/local/share/ca-certificates/do-cert.crt && \
+    cat /run/secrets/CA_CERT > /usr/local/share/ca-certificates/do-cert.crt && \
     update-ca-certificates
 
 # Specify default port
