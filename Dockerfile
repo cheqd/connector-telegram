@@ -2,15 +2,14 @@
 ###    STAGE 1: Build LogTo runner with customisations      ###
 ###############################################################
 
-FROM ghcr.io/logto-io/logto:edge as runner
+FROM ghcr.io/logto-io/logto:1.0.0-rc.3 as runner
 
 # Set working directory & bash defaults
 WORKDIR /etc/logto
 
 # Install pre-requisites
 RUN apk update && \
-    apk add --no-cache bash ca-certificates && \
-    apk add --update coreutils
+    apk add --no-cache bash ca-certificates
 
 # Copy source files
 COPY ./packages ./packages/core/connectors
@@ -24,7 +23,7 @@ ARG ADMIN_DISABLE_LOCALHOST=false
 ARG TRUST_PROXY_HEADER=true
 ARG ADMIN_ENDPOINT
 ARG ENDPOINT
-ARG CA_CERT ${CA_CERT}
+ARG CA_CERT
 ARG NODE_EXTRA_CA_CERTS ${NODE_EXTRA_CA_CERTS}
 
 # Run-time environment variables
@@ -40,9 +39,9 @@ ENV CA_CERT ${CA_CERT}
 ENV NODE_EXTRA_CA_CERTS /usr/local/share/ca-certificates/do-cert.crt
 
 # Change ownership of working directory
-RUN chown -R node:node /etc/logto && \
+RUN --mount=type=secret,id=CA_CERT chown -R node:node /etc/logto && \
     touch /usr/local/share/ca-certificates/do-cert.crt && \
-    echo "${CA_CERT}" | base64 --decode > /usr/local/share/ca-certificates/do-cert.crt && \
+    echo "$CA_CERT" > /usr/local/share/ca-certificates/do-cert.crt && \
     update-ca-certificates
 
 # Specify default port
