@@ -2,7 +2,7 @@
 ###    STAGE 1: Build LogTo runner with customisations      ###
 ###############################################################
 
-FROM ghcr.io/logto-io/logto:1.0.0-rc.3 as runner
+FROM ghcr.io/logto-io/logto:edge as runner
 
 # Set working directory & bash defaults
 WORKDIR /etc/logto
@@ -37,6 +37,7 @@ ENV ADMIN_ENDPOINT ${ADMIN_ENDPOINT}
 ENV ENDPOINT ${ENDPOINT}
 ENV CA_CERT ${CA_CERT}
 ENV NODE_EXTRA_CA_CERTS /usr/local/share/ca-certificates/do-cert.crt
+ENV DOCKER_BUILDKIT 1
 
 # Change ownership of working directory
 RUN --mount=type=secret,id=CA_CERT chown -R node:node /etc/logto && \
