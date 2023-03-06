@@ -25,6 +25,14 @@ jobs:
         with:
           install: true
           version: latest
+
+      - name: Install DigitalOcean CLI
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Login to DigitalOcean Container Registry
+        run: doctl registry login --expiry-seconds 600
       
       - name: Configure Docker image metadata
         id: meta
