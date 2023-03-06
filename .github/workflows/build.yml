@@ -6,7 +6,8 @@ defaults:
     shell: bash
 
 jobs:
-  main:
+  build:
+    name: "Build"
     runs-on: ubuntu-latest
 
     steps:
