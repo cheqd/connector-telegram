@@ -2,7 +2,7 @@
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "exports": "./lib/index.js",
-  "license": "MPL-2.0",
+  "license": "Apache-2.0",
   "type": "module",
   "files": [
     "lib",
@@ -71,6 +71,7 @@
   },
   "prettier": "@silverhand/eslint-config/.prettierrc",
   "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
   "name": "@cheqd/connector-telegram",
