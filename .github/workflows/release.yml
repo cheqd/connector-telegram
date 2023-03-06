@@ -25,7 +25,7 @@ jobs:
           run-install: false # sync package.json and install deps manually in the next steps
 
       - name: Sync package.json and install deps
-        run: pnpm package:sync --silent && pnpm i
+        run: pnpm package:sync --silent && pnpm ci
 
       - name: "Obtain Github App token"
         id: app-token
@@ -35,7 +35,7 @@ jobs:
           private_key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
       - name: Build
-        run: pnpm -r build
+        run: pnpm build
 
       - name: "Execute Semantic Release"
         run: npx semantic-release

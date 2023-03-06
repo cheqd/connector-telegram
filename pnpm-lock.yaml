@@ -2,8 +2,13 @@ lockfileVersion: 5.4
 
 specifiers:
   '@semantic-release/changelog': ^6.0.2
+  '@semantic-release/commit-analyzer': ^9.0.2
   '@semantic-release/git': ^10.0.1
-  '@types/node': ^18.7.13
+  '@semantic-release/github': ^8.0.7
+  '@semantic-release/release-notes-generator': ^10.0.3
+  '@types/node': ^18.14.6
+  conventional-changelog-conventionalcommits: ^5.0.0
+  husky: ^8.0.3
   semantic-release: ^20.1.1
   semantic-release-pnpm: ^1.0.2
   ts-node: ^10.9.1
@@ -11,11 +16,16 @@ specifiers:
 
 devDependencies:
   '@semantic-release/changelog': 6.0.2_semantic-release@20.1.1
+  '@semantic-release/commit-analyzer': 9.0.2_semantic-release@20.1.1
   '@semantic-release/git': 10.0.1_semantic-release@20.1.1
-  '@types/node': 18.14.2
+  '@semantic-release/github': 8.0.7_semantic-release@20.1.1
+  '@semantic-release/release-notes-generator': 10.0.3_semantic-release@20.1.1
+  '@types/node': 18.14.6
+  conventional-changelog-conventionalcommits: 5.0.0
+  husky: 8.0.3
   semantic-release: 20.1.1
   semantic-release-pnpm: 1.0.2_semantic-release@20.1.1
-  ts-node: 10.9.1_ellgaeuoqnti3hful2ny2iugba
+  ts-node: 10.9.1_alpjt73dvgv6kni625hu7f2l4m
   typescript: 4.9.5
 
 packages:
@@ -380,8 +390,8 @@ packages:
     resolution: {integrity: sha512-jhuKLIRrhvCPLqwPcx6INqmKeiA5EWrsCOPhrlFSrbrmU4ZMPjj5Ul/oLCMDO98XRUIwVm78xICz4EPCektzeQ==}
     dev: true
 
-  /@types/node/18.14.2:
-    resolution: {integrity: sha512-1uEQxww3DaghA0RxqHx0O0ppVlo43pJhepY51OxuQIKHpjbnYLA7vcdwioNPzIqmC2u3I/dmylcqjlh0e7AyUA==}
+  /@types/node/18.14.6:
+    resolution: {integrity: sha512-93+VvleD3mXwlLI/xASjw0FzKcwzl3OdTCzm1LaRfqgS21gfFtK3zDXM5Op9TeeMsJVOaJ2VRDpT9q4Y3d0AvA==}
     dev: true
 
   /@types/normalize-package-data/2.4.1:
@@ -633,6 +643,15 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       compare-func: 2.0.0
+      q: 1.5.1
+    dev: true
+
+  /conventional-changelog-conventionalcommits/5.0.0:
+    resolution: {integrity: sha512-lCDbA+ZqVFQGUj7h9QBKoIpLhl8iihkO0nCTyRNzuXtcd7ubODpYB04IFy31JloiJgG0Uovu8ot8oxRzn7Nwtw==}
+    engines: {node: '>=10'}
+    dependencies:
+      compare-func: 2.0.0
+      lodash: 4.17.21
       q: 1.5.1
     dev: true
 
@@ -1115,6 +1134,12 @@ packages:
   /human-signals/4.3.0:
     resolution: {integrity: sha512-zyzVyMjpGBX2+6cDVZeFPCdtOtdsxOeseRhB9tkQ6xXmGUNrcnBzdEKPy3VPNYz+4gy1oukVOXcrJCunSyc6QQ==}
     engines: {node: '>=14.18.0'}
+    dev: true
+
+  /husky/8.0.3:
+    resolution: {integrity: sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==}
+    engines: {node: '>=14'}
+    hasBin: true
     dev: true
 
   /ignore/5.2.4:
@@ -2344,7 +2369,7 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /ts-node/10.9.1_ellgaeuoqnti3hful2ny2iugba:
+  /ts-node/10.9.1_alpjt73dvgv6kni625hu7f2l4m:
     resolution: {integrity: sha512-NtVysVPkxxrwFGUUxGYhfux8k78pQB3JqYBXlLRZgdGUqTO5wU/UyHop5p70iEbGhB7q5KmiZiU0Y3KlJrScEw==}
     hasBin: true
     peerDependencies:
@@ -2363,7 +2388,7 @@ packages:
       '@tsconfig/node12': 1.0.11
       '@tsconfig/node14': 1.0.3
       '@tsconfig/node16': 1.0.3
-      '@types/node': 18.14.2
+      '@types/node': 18.14.6
       acorn: 8.8.2
       acorn-walk: 8.2.0
       arg: 4.1.3
