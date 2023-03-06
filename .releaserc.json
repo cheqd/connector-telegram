@@ -51,7 +51,7 @@
                 "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
             }
         ],
-        [ "@colbyfayock/semantic-release-pnpm",
+        [ "semantic-release-plugin-pnpm",
             {
                 "pkgRoot": "lib"
             }
