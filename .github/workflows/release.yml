@@ -38,7 +38,7 @@ jobs:
         run: pnpm build
 
       - name: "Execute Semantic Release"
-        run: pnpm -r --workspace-concurrency=1 exec -- npx --no-install semantic-release -e semantic-release-monorepo
+        run: pnpm -r --workspace-concurrency=1 exec -- npx semantic-release -e semantic-release-monorepo
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
