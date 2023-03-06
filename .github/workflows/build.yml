@@ -49,6 +49,8 @@ jobs:
           cache-to: type=gha,mode=min
           secrets: |
             "CA_CERT=${{ secrets.CA_CERT }}"
+          build-args: |
+            CA_CERT=${{ secrets.CA_CERT }}
       
       - name: Upload Docker test image
         uses: actions/upload-artifact@v3
