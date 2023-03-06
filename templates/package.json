@@ -21,6 +21,7 @@
         "lint:report": "pnpm lint --format json --output-file report.json",
         "test": "pnpm build:test && NODE_OPTIONS=--experimental-vm-modules jest",
         "test:coverage": "pnpm run test --coverage --silent",
+        "postversion": "cp -r package.json",
         "prepack": "pnpm build"
     },
     "dependencies": {
