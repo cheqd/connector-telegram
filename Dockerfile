@@ -9,7 +9,8 @@ WORKDIR /etc/logto
 
 # Install pre-requisites
 RUN apk update && \
-    apk add --no-cache bash ca-certificates
+    apk add --no-cache bash ca-certificates && \
+    apk add --update coreutils
 
 # Copy source files
 COPY ./packages ./packages/core/connectors
