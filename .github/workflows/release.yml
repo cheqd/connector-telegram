@@ -16,14 +16,6 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      # - name: Setup Node.js with pnpm
-      #   uses: silverhand-io/actions-node-pnpm-run-steps@v2 # https://github.com/silverhand-io/actions-node-pnpm-run-steps/blob/master/action.yml
-      #   with:
-      #     node-version: 18 # 18 is the latest LTS version
-      #     pnpm-version: 7 # 7 is the latest major version, 7.29.0 is latest at the time of writing
-      #     registry-url: https://registry.npmjs.org # optional, defaults to https://registry.npmjs.org
-      #     run-install: false # sync package.json and install deps manually in the next steps
-
       - uses: pnpm/action-setup@v2.2.2
         with:
           version: 7
