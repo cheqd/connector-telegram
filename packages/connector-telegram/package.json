@@ -75,7 +75,7 @@
     "access": "public"
   },
   "name": "@cheqd/connector-telegram",
-  "version": "0.0.1",
+  "version": "1.0.0-develop.2",
   "description": "Telegram OAuth connector implementation.",
   "author": "Cheqd Foundation Limited (https://github.com/cheqd)"
 }
