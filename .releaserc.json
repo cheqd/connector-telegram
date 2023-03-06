@@ -44,7 +44,11 @@
                 "changelogTitle": "# Changelog"
             }
         ],
-        "@semantic-release/npm",
+        [ "semantic-release-pnpm",
+            {
+                "tarballDir": "lib"
+            }
+        ],
         [ "@semantic-release/git",
             {
                 "assets": [ "package.json", "CHANGELOG.md" ],

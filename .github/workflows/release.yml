@@ -1,0 +1,44 @@
+name: "Release"
+on:
+  workflow_call:
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  release:
+    name: "Semantic Release"
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Setup Node.js with pnpm
+        uses: silverhand-io/actions-node-pnpm-run-steps@v2 # https://github.com/silverhand-io/actions-node-pnpm-run-steps/blob/master/action.yml
+        with:
+          node-version: 18 # 18 is the latest LTS version
+          pnpm-version: 7 # 7 is the latest major version, 7.29.0 is latest at the time of writing
+          registry-url: https://registry.npmjs.org # optional, defaults to https://registry.npmjs.org
+          run-install: false # sync package.json and install deps manually in the next steps
+
+      - name: Sync package.json and install deps
+        run: pnpm package:sync --silent && pnpm i
+
+      - name: "Obtain Github App token"
+        id: app-token
+        uses: getsentry/action-github-app-token@v2.0.0
+        with:
+          app_id: ${{ secrets.BOT_APP_ID }}
+          private_key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
+      - name: Build
+        run: pnpm -r build
+
+      - name: "Execute Semantic Release"
+        run: npx semantic-release
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -7,21 +7,18 @@
         "pnpm:devPreinstall": "pnpm package:sync",
         "preinstall": "npx only-allow pnpm",
         "changeset": "changeset",
-        "//": "# `changeset version` won't run version lifecycle scripts, see https://github.com/changesets/changesets/issues/860",
         "build": "pnpm -r build",
         "lint": "pnpm -r lint",
-        "test": "pnpm -r test",
-        "prepare": "if test \"$NODE_ENV\" != \"production\" ; then husky install ; fi"
+        "test": "pnpm -r test"
     },
     "devDependencies": {
-        "@changesets/cli": "^2.26.0",
-        "@commitlint/cli": "^17.0.0",
-        "@commitlint/config-conventional": "^17.0.0",
-        "@commitlint/types": "^17.0.0",
+        "@semantic-release/changelog": "^6.0.2",
+        "@semantic-release/git": "^10.0.1",
         "@types/node": "^18.7.13",
-        "husky": "^8.0.0",
+        "semantic-release": "^20.1.1",
+        "semantic-release-pnpm": "^1.0.2",
         "ts-node": "^10.9.1",
-        "typescript": "^4.9.4"
+        "typescript": "^4.9.5"
     },
     "workspaces": {
         "packages": [
