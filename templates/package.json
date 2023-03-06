@@ -15,6 +15,7 @@
         "package:update": "cd ../../ && pnpm package:update",
         "precommit": "lint-staged",
         "build:test": "rm -rf lib/ && tsc -p tsconfig.test.json",
+        "build": "rm -rf lib/ && tsc -p tsconfig.build.json --noEmit && rollup -c",
         "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput --incremental",
         "lint": "eslint --ext .ts src",
         "lint:report": "pnpm lint --format json --output-file report.json",

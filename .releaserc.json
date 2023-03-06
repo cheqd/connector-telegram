@@ -1,4 +1,5 @@
 {
+    "extends": "semantic-release-monorepo",
     "branches": [
         "main",
         {
@@ -42,11 +43,6 @@
         [ "@semantic-release/changelog",
             {
                 "changelogTitle": "# Changelog"
-            }
-        ],
-        [ "semantic-release-pnpm",
-            {
-                "tarballDir": "lib"
             }
         ],
         [ "@semantic-release/git",
