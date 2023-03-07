@@ -22,7 +22,7 @@
         "test": "pnpm build:test && NODE_OPTIONS=--experimental-vm-modules jest",
         "test:coverage": "pnpm run test --coverage --silent",
         "prepack": "pnpm build",
-        "version": "pnpm package:sync"
+        "version": "pnpm package:update"
     },
     "dependencies": {
         "@logto/connector-kit": "1.0.0-rc.2",
