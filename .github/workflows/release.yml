@@ -43,6 +43,12 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
+      - name: "Write NPM version from GH tag with sed"
+        run: |
+          NPM_VERSION=$( git describe --tags --abbrev=0 )
+          pnpm -r exec sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*.*\"/\"version\": \"$NPM_VERSION\"/" package.json
+        if: ${{ success() }}
+
       - name: Publish to NPM
         run: |
           pnpm -r version
