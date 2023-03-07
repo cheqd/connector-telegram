@@ -59,6 +59,8 @@ jobs:
 
       - name: "Sync internal package version"
         run: |
+          git config user.email "
+          git config user.name "github-actions-bot"
           git add **/package.extend.json
           git commit -m "chore(release): Sync package version [skip ci]"
           git push
