@@ -46,6 +46,6 @@ jobs:
       - name: Publish to NPM
         run: |
           NPM_TAG=$( [[ "${{ github.ref }}" == "refs/heads/main" ]] && echo "latest" || echo "beta" )
-          pnpm -rc --workspace-concurrency=1 publish --access public --tag "$NPM_TAG" --registry https://registry.npmjs.org/:_authToken=${NPM_TOKEN}
+          pnpm -r --workspace-concurrency=1 publish --access public --tag "$NPM_TAG" --registry https://registry.npmjs.org/:_authToken=${NPM_TOKEN}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
