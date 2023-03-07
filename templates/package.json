@@ -21,8 +21,8 @@
         "lint:report": "pnpm lint --format json --output-file report.json",
         "test": "pnpm build:test && NODE_OPTIONS=--experimental-vm-modules jest",
         "test:coverage": "pnpm run test --coverage --silent",
-        "postversion": "pnpm -r package:update",
-        "prepack": "pnpm build"
+        "prepack": "pnpm build",
+        "version": "pnpm package:sync"
     },
     "dependencies": {
         "@logto/connector-kit": "1.0.0-rc.2",

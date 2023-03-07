@@ -45,11 +45,6 @@
                 "changelogTitle": "# Changelog"
             }
         ],
-        [ "semantic-release-pnpm",
-            {
-                "npmPublish": false
-            }
-        ],
         [ "@semantic-release/git",
             {
                 "assets": [ "package.extend.json", "CHANGELOG.md" ],
