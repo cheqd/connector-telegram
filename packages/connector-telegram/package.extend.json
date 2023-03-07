@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/package",
   "name": "@cheqd/connector-telegram",
-  "version": "1.0.0-develop.12",
+  "version": "1.0.0-develop.13",
   "description": "Telegram OAuth connector implementation.",
   "author": "Cheqd Foundation Limited (https://github.com/cheqd)",
   "devDependencies": {
