@@ -1,5 +1,7 @@
 # Changelog
 
+# [@cheqd/connector-telegram-v1.0.0-develop.16](https://github.com/cheqd/community-credentials-auth/compare/1.0.0-develop.15...1.0.0-develop.16) (2023-03-08)
+
 # [@cheqd/connector-telegram-v1.0.0-develop.15](https://github.com/cheqd/community-credentials-auth/compare/1.0.0-develop.14...1.0.0-develop.15) (2023-03-08)
 
 # [@cheqd/connector-telegram-v1.0.0-develop.14](https://github.com/cheqd/community-credentials-auth/compare/1.0.0-develop.13...1.0.0-develop.14) (2023-03-07)
