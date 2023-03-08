@@ -1,4 +1,4 @@
-name: "Build & Test"
+name: "Build Docker Image"
 on:
   workflow_call:
 defaults:
@@ -6,27 +6,58 @@ defaults:
     shell: bash
 
 jobs:
-  build:
-    name: "Build"
+  build-docker:
+    # Doing a build at this stage will create reusable cache layers for release workflow
+    name: "Custom LogTo Docker image"
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: ${{ github.repository }}
+      DOCKER_BUILDKIT: 1
 
     steps:
       - uses: actions/checkout@v3
 
-      - uses: pnpm/action-setup@v2.2.2
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        id: buildx
         with:
-          version: 7
+          install: true
+          version: latest
 
-      - uses: actions/setup-node@v3
+      - name: Install DigitalOcean CLI
+        uses: digitalocean/action-doctl@v2
         with:
-          node-version: 18
-          # cache: 'pnpm' # running pnpm install will use the cache automatically
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
-      - name: Sync package.json and install deps
-        run: pnpm package:sync --silent && pnpm ci
-
-      - name: Build
-        run: pnpm build
-
-      # - name: Test
-      #   run: pnpm -r --parallel test:coverage
+      - name: Login to DigitalOcean Container Registry
+        run: doctl registry login --expiry-seconds 600
+      
+      - name: Configure Docker image metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: registry.digitalocean.com/${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=raw,value=staging-latest
+            type=sha,format=long
+      - name: Build image
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          file: Dockerfile
+          platforms: linux/amd64
+          load: true
+          target: runner
+          tags: ${{ steps.meta.outputs.tags }}
+          outputs: type=docker,dest=/tmp/logto.tar
+          cache-from: type=gha
+          cache-to: type=gha,mode=min
+          secrets: |
+            "CA_CERT=${{ secrets.CA_CERT }}"
+      
+      - name: Upload Docker test image
+        uses: actions/upload-artifact@v3
+        with:
+          name: logto.tar
+          path: /tmp/logto.tar
