@@ -41,6 +41,7 @@ jobs:
             type=ref,event=branch
             type=raw,value=staging-latest
             type=sha,format=long
+
       - name: Build image
         uses: docker/build-push-action@v3
         with:
@@ -55,7 +56,7 @@ jobs:
           cache-to: type=gha,mode=min
           secrets: |
             "CA_CERT=${{ secrets.CA_CERT }}"
-      
+
       - name: Upload Docker test image
         uses: actions/upload-artifact@v3
         with:
