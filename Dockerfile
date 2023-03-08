@@ -43,10 +43,10 @@ WORKDIR /custom-connectors
 RUN npm install -g -D pnpm@latest-7
 
 # Install dependencies and built the npm package
-RUN pnpm i && pnpm build
+RUN pnpm ci && pnpm build
 
 # Copy the build output
-RUN mv /custom-connectors/packages /etc/logto/packages/core/connectors
+RUN mv /custom-connectors/packages/* /etc/logto/packages/core/connectors/
 
 # Change ownership of working directory and update CA certificates
 RUN --mount=type=secret,id=CA_CERT chown -R node:node /etc/logto && \
