@@ -16,7 +16,7 @@ RUN apk update && \
 COPY . /custom-connectors
 
 # Build-time arguments
-ARG NPM_CONFIG_LOGLEVEL=debug
+ARG NPM_CONFIG_LOGLEVEL=warn
 ARG PORT=3001
 ARG ADMIN_PORT=3002
 ARG ADMIN_DISABLE_LOCALHOST=false
