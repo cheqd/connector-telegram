@@ -60,7 +60,7 @@ jobs:
       - name: "Sync internal package version"
         run: |
           git remote set-url origin https://cheqd:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
-          git config user.emai "github-actions[bot]@users.noreply.github.com"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
           git config user.name "github-actions[bot]"
           git add **/package.extend.json
           git commit -m "chore(release): Sync package version [skip ci]"
