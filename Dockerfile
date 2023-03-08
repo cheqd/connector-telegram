@@ -13,7 +13,7 @@ RUN apk update && \
     apk add --no-cache bash ca-certificates
 
 # Copy source files
-COPY ./packages ./packages/core/connectors
+# COPY ./packages ./packages/core/connectors
 
 # Build-time arguments
 ARG NODE_ENV=production
@@ -38,7 +38,7 @@ ENV ENDPOINT ${ENDPOINT}
 ENV NODE_EXTRA_CA_CERTS /usr/local/share/ca-certificates/do-cert.crt
 ENV DOCKER_BUILDKIT 1
 
-# Change ownership of working directory
+# Change ownership of working directory and update CA certificates
 RUN --mount=type=secret,id=CA_CERT chown -R node:node /etc/logto && \
     touch /usr/local/share/ca-certificates/do-cert.crt && \
     cat /run/secrets/CA_CERT > /usr/local/share/ca-certificates/do-cert.crt && \
