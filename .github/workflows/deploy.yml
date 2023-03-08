@@ -6,7 +6,6 @@ defaults:
     shell: bash
 
 jobs:
-  
   deploy-staging:
     name: "Staging Deploy"
     runs-on: ubuntu-latest

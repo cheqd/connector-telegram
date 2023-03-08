@@ -1,13 +1,11 @@
-name: "Build & Test"
+name: "Build Docker Image"
 on:
   workflow_call:
 defaults:
   run:
     shell: bash
 
-
 jobs:
-
   build-docker:
     # Doing a build at this stage will create reusable cache layers for release workflow
     name: "Custom LogTo Docker image"
@@ -58,7 +56,7 @@ jobs:
           cache-to: type=gha,mode=min
           secrets: |
             "CA_CERT=${{ secrets.CA_CERT }}"
-      
+
       - name: Upload Docker test image
         uses: actions/upload-artifact@v3
         with:

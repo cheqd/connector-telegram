@@ -13,6 +13,7 @@ RUN apk update && \
     apk add --no-cache bash ca-certificates
 
 # Copy source files
+# Probably best to copy over output files rather than introduce cyclic dependencies with release stage.
 # COPY ./packages ./packages/core/connectors
 
 # Build-time arguments
