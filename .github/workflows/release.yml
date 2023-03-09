@@ -4,12 +4,69 @@ on:
 defaults:
   run:
     shell: bash
-permissions:
-  contents: write
-  packages: write
-
 
 jobs:
+  release-npm:
+    name: "Semantic Release"
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          # cache: 'pnpm' # running pnpm install will use the cache automatically
+
+      - name: Sync package.json and install deps
+        run: pnpm package:sync --silent && pnpm ci
+
+      - name: "Obtain Github App token"
+        id: app-token
+        uses: getsentry/action-github-app-token@v2.0.0
+        with:
+          app_id: ${{ secrets.BOT_APP_ID }}
+          private_key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
+
+      - name: Build
+        run: pnpm build
+
+      - name: "Execute Semantic Release"
+        run: pnpm -rc --workspace-concurrency=1 exec -- npx --no-install semantic-release -e semantic-release-monorepo
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: "Write NPM version"
+        run: |
+          NPM_VERSION=$( git describe --tags --abbrev=0 )
+          pnpm -r exec sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*.*\"/\"version\": \"$NPM_VERSION\"/" package.json
+        if: ${{ success() }}
+
+      - name: Publish to NPM
+        run: |
+          pnpm -r version
+          NPM_TAG=$( [[ "${{ github.ref }}" == "refs/heads/main" ]] && echo "latest" || echo "beta" )
+          pnpm -r publish --access public --tag "$NPM_TAG" --registry "https://registry.npmjs.org/:_authToken=${NPM_TOKEN}" --no-git-checks
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: "Sync internal package version"
+        run: |
+          git remote set-url origin https://cheqd:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git add **/package.extend.json
+          git commit -m "chore(release): Sync package version [skip ci]"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
   release-docker:
     name: "Logto Docker image with built-in custom connectors"
@@ -55,7 +112,6 @@ jobs:
             org.opencontainers.image.vendor="Cheqd Foundation Limited"
             org.opencontainers.image.created={{date 'dddd, MMMM Do YYYY, h:mm:ss a'}}
             org.opencontainers.image.documentation="https://product.cheqd.io/"
-
       - name: Build Logto image
         uses: docker/build-push-action@v4
         with:
