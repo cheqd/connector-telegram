@@ -31,4 +31,4 @@ export const authorizationCallbackErrorGuard = z.object({
     error_uri: z.string(),
 });
 
-export const authResponseGuard = z.object({ hash: z.string() });
+export const authResponseGuard = z.object({ tgAuthResult: z.string() });
