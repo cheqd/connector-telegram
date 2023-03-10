@@ -1,5 +1,12 @@
 # Changelog
 
+# [@cheqd/connector-telegram-v1.0.2-develop.3](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.2...1.0.2-develop.3) (2023-03-10)
+
+
+### Bug Fixes
+
+* Enriched redirect URL with search params ([a165e13](https://github.com/cheqd/community-credentials-auth/commit/a165e13a4619b8e5512139095d1103014d36c414))
+
 # [@cheqd/connector-telegram-v1.0.2-develop.2](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.1...1.0.2-develop.2) (2023-03-09)
 
 
