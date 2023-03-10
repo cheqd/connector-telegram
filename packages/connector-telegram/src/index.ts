@@ -25,12 +25,19 @@ const getAuthorizationUri = (getConfig: GetConnectorConfig): GetAuthorizationUri
     validateConfig<TelegramConfig>(config, telegramConfigGuard);
     const tokenParts = config.botToken.split(':');
     const botId = tokenParts[0];
+
+    // reconstruct the return_to url
+    const returnTo = new URL(redirectUri);
+
+    // append state to return_to url
+    returnTo.searchParams.set('state', state);
+
     const queryParameters = new URLSearchParams({
         bot_id: botId!,
-        return_to: redirectUri,
         origin: config.origin,
         embed: '1',
         request_access: scope,
+        return_to: returnTo.toString(),
     });
     return `${authorizationEndpoint}?${queryParameters.toString()}`;
 };
