@@ -1,5 +1,12 @@
 # Changelog
 
+# [@cheqd/connector-telegram-v1.0.2-develop.4](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.3...1.0.2-develop.4) (2023-03-10)
+
+
+### Bug Fixes
+
+* Debugging behaviour ([390fb4b](https://github.com/cheqd/community-credentials-auth/commit/390fb4b8969f16e29b2e000c706eddb273d3d9a2))
+
 # [@cheqd/connector-telegram-v1.0.2-develop.3](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.2...1.0.2-develop.3) (2023-03-10)
 
 
