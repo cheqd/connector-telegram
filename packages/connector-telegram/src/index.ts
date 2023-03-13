@@ -45,12 +45,6 @@ const getAuthorizationUri = (getConfig: GetConnectorConfig): GetAuthorizationUri
 const authorizationCallbackHandler = async (parameterObject: unknown) => {
     const result = authResponseGuard.safeParse(parameterObject);
 
-    // debugging parameterObject
-    console.warn('parameterObject: ', parameterObject)
-
-    // debugging hash
-    console.warn('window.location.hash: ', window.location.hash)
-
     if (!result.success) {
         throw new ConnectorError(ConnectorErrorCodes.General, JSON.stringify(parameterObject));
     }
