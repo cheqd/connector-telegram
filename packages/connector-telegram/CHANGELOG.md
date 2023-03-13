@@ -1,5 +1,12 @@
 # Changelog
 
+# [@cheqd/connector-telegram-v1.0.2-develop.5](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.4...1.0.2-develop.5) (2023-03-13)
+
+
+### Bug Fixes
+
+* Removed redundant prints ([09cd0bc](https://github.com/cheqd/community-credentials-auth/commit/09cd0bc50d1decccb60fd18daeea2b2488f8707e))
+
 # [@cheqd/connector-telegram-v1.0.2-develop.4](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.3...1.0.2-develop.4) (2023-03-10)
 
 
