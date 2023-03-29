@@ -17,7 +17,7 @@ importers:
   packages/connector-telegram:
     specifiers:
       '@jest/types': ^29.3.1
-      '@logto/connector-kit': 1.0.0-rc.2
+      '@logto/connector-kit': latest
       '@rollup/plugin-commonjs': ^24.0.0
       '@rollup/plugin-json': ^6.0.0
       '@rollup/plugin-node-resolve': ^15.0.1
@@ -51,7 +51,7 @@ importers:
       typescript: ^4.9.4
       zod: ^3.20.2
     dependencies:
-      '@logto/connector-kit': 1.0.0-rc.2
+      '@logto/connector-kit': 1.1.0
       '@silverhand/essentials': 2.1.0
       got: 12.6.0
       snakecase-keys: 5.4.5
@@ -766,30 +766,18 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.14
     dev: true
 
-  /@logto/connector-kit/1.0.0-rc.2:
-    resolution: {integrity: sha512-3ln0L+PVbiWZmEmy5CwGzXN9BhYVdZHtOh/fOm5FUMkDD/0tOEhBUMHAp9V9hTBTb0THh7kRAcRmWhblN3oTOQ==}
+  /@logto/connector-kit/1.1.0:
+    resolution: {integrity: sha512-ZD7zHZO0VvlZUYn/YtvJifi7L3hqAdUjw30TzeCcb9emhYp2stO/lT3XQp6UOgyIIlTpeQI5kqImA/4gnhBUbQ==}
     engines: {node: ^18.12.0}
     dependencies:
-      '@logto/core-kit': 1.0.0-rc.0
-      '@logto/language-kit': 1.0.0-rc.0
-      '@silverhand/essentials': 2.2.0
+      '@logto/language-kit': 1.0.0
+      '@silverhand/essentials': 2.6.0
     optionalDependencies:
       zod: 3.21.2
     dev: false
 
-  /@logto/core-kit/1.0.0-rc.0:
-    resolution: {integrity: sha512-xXZV99Q8GL+pRY2uJOuG3MQn7yrzpd/N8ULvnug3Q7qh0KBIrMIJ+pWqlUltrm/kywLh6ufvKzmEQGaIW87v1w==}
-    engines: {node: ^18.12.0}
-    dependencies:
-      '@logto/language-kit': 1.0.0-rc.0
-      color: 4.2.3
-      nanoid: 4.0.1
-    optionalDependencies:
-      zod: 3.21.2
-    dev: false
-
-  /@logto/language-kit/1.0.0-rc.0:
-    resolution: {integrity: sha512-8H3wIkw1xLtYCxCy6oAie3DK187aPqQiibpnPErRlnE57wQTtcJm5mCuRM5OvFxY5ANDDslHgvGTaZO0Umq+aA==}
+  /@logto/language-kit/1.0.0:
+    resolution: {integrity: sha512-lsnxOecS7eE7z/ZAf8sSQ3+VFWdw78sqDc/oESso6ZqzKSUGfkBdEMxcUhqh6JpFb62bNFND4Lgyvj+g6y94qw==}
     engines: {node: ^18.12.0}
     optionalDependencies:
       zod: 3.21.2
@@ -1224,8 +1212,8 @@ packages:
     engines: {node: ^16.13.0 || ^18.12.0 || ^19.2.0, pnpm: ^7}
     dev: false
 
-  /@silverhand/essentials/2.2.0:
-    resolution: {integrity: sha512-xoj/wAnPUt9ZAzt7QCHhSKZPweZnNJU7tBYrDTf54db6L+++SiXYIyckKDY+vKkGACn9kTAWPF74qSfYt1OQtA==}
+  /@silverhand/essentials/2.6.0:
+    resolution: {integrity: sha512-D6Dg85FeUiXoZpbesQQW7epcDCRKMPi9z6N6vcaSCowUusKWvUX6xdv01iPPP4JqwZa828zavZ7rYRep7h8J5g==}
     engines: {node: ^16.13.0 || ^18.12.0 || ^19.2.0, pnpm: ^7}
     dev: false
 
@@ -2098,6 +2086,7 @@ packages:
     engines: {node: '>=7.0.0'}
     dependencies:
       color-name: 1.1.4
+    dev: true
 
   /color-name/1.1.3:
     resolution: {integrity: sha512-72fSenhMw2HZMTVHeCA9KCmpEIbzWiQsjN+BHcBbS9vr1mtt+vJjPdksIBNUmKAW8TFUDPJK5SUU3QhE9NEXDw==}
@@ -2105,21 +2094,7 @@ packages:
 
   /color-name/1.1.4:
     resolution: {integrity: sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==}
-
-  /color-string/1.9.1:
-    resolution: {integrity: sha512-shrVawQFojnZv6xM40anx4CkoDP+fZsw/ZerEMsW/pyzsRbElpsL/DBVW7q3ExxwusdNXI3lXpuhEZkzs8p5Eg==}
-    dependencies:
-      color-name: 1.1.4
-      simple-swizzle: 0.2.2
-    dev: false
-
-  /color/4.2.3:
-    resolution: {integrity: sha512-1rXeuUUiGGrykh+CeBdu5Ie7OJwinCgQY0bc7GCRxy5xVHy+moaqkpL/jqQq0MtQOeYcrqEz4abc5f0KtU7W4A==}
-    engines: {node: '>=12.5.0'}
-    dependencies:
-      color-convert: 2.0.1
-      color-string: 1.9.1
-    dev: false
+    dev: true
 
   /colorette/2.0.19:
     resolution: {integrity: sha512-3tlv/dIP7FWvj3BsbHrGLJ6l/oKh1O3TcgBqMn+yyCagOxc23fyzDS6HypQbgxWbkpDnf52p1LuR4eWDQ/K9WQ==}
@@ -3718,10 +3693,6 @@ packages:
     resolution: {integrity: sha512-zz06S8t0ozoDXMG+ube26zeCTNXcKIPJZJi8hBrF4idCLms4CG9QtK7qBl1boi5ODzFpjswb5JPmHCbMpjaYzg==}
     dev: true
 
-  /is-arrayish/0.3.2:
-    resolution: {integrity: sha512-eVRqCvVlZbuw3GrM63ovNSNAeA1K16kaR/LRY/92w0zxQ5/1YzwblUX652i4Xs9RwAGjW9d9y6X88t8OaAJfWQ==}
-    dev: false
-
   /is-bigint/1.0.4:
     resolution: {integrity: sha512-zB9CruMamjym81i2JZ3UMn54PKGsQzsJeo6xvN3HJJ4CAsQNB6iRutp2To77OfCNuoxspsIhzaPoO1zyCEhFOg==}
     dependencies:
@@ -4909,11 +4880,6 @@ packages:
     resolution: {integrity: sha512-sGkPx+VjMtmA6MX27oA4FBFELFCZZ4S4XqeGOXCv68tT+jb3vk/RyaKWP0PTKyWtmLSM0b+adUTEvbs1PEaH2w==}
     dev: true
 
-  /nanoid/4.0.1:
-    resolution: {integrity: sha512-udKGtCCUafD3nQtJg9wBhRP3KMbPglUsgV5JVsXhvyBs/oefqb4sqMEhKBBgqZncYowu58p1prsZQBYvAj/Gww==}
-    engines: {node: ^14 || ^16 || >=18}
-    dev: false
-
   /natural-compare-lite/1.4.0:
     resolution: {integrity: sha512-Tj+HTDSJJKaZnfiuw+iaF9skdPpTo2GtEly5JHnWV/hfv2Qj/9RKsGISQtLh2ox3l5EAGw487hnBee0sIJ6v2g==}
     dev: true
@@ -5917,12 +5883,6 @@ packages:
       figures: 2.0.0
       pkg-conf: 2.1.0
     dev: true
-
-  /simple-swizzle/0.2.2:
-    resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
-    dependencies:
-      is-arrayish: 0.3.2
-    dev: false
 
   /sisteransi/1.0.5:
     resolution: {integrity: sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==}
