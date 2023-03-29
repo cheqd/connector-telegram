@@ -25,7 +25,7 @@
         "version": "pnpm package:update"
     },
     "dependencies": {
-        "@logto/connector-kit": "latest",
+        "@logto/connector-kit": "1.1.0",
         "@silverhand/essentials": "2.1.0",
         "got": "^12.5.3",
         "snakecase-keys": "^5.1.0",

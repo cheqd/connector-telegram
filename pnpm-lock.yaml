@@ -17,7 +17,7 @@ importers:
   packages/connector-telegram:
     specifiers:
       '@jest/types': ^29.3.1
-      '@logto/connector-kit': latest
+      '@logto/connector-kit': 1.1.0
       '@rollup/plugin-commonjs': ^24.0.0
       '@rollup/plugin-json': ^6.0.0
       '@rollup/plugin-node-resolve': ^15.0.1
