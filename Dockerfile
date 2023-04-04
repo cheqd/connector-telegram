@@ -3,7 +3,7 @@
 ###    STAGE 1: Build LogTo runner with customisations      ###
 ###############################################################
 
-FROM registry.digitalocean.com/cheqd/logto:1.0.0-rc.3 as runner
+FROM registry.digitalocean.com/cheqd/logto:1.0.3 as runner
 
 # Set working directory
 WORKDIR /etc/logto
