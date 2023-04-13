@@ -10,7 +10,7 @@ jobs:
     name: "Staging Deploy"
     runs-on: ubuntu-latest
     env: 
-      IMAGE_NAME: ${{ github.repository }}
+      IMAGE_NAME: registry.digitalocean.com/${{ github.repository }}
     environment: 
       name: staging
       url: https://admin-auth-staging.creds.xyz
@@ -27,10 +27,10 @@ jobs:
       - name: Download Docker image
         uses: actions/download-artifact@v3
         with:
-          name: logto.tar
+          name: logto-staging.tar
 
       - name: Load Docker image
-        run: docker image load --input logto.tar
+        run: docker image load --input logto-staging.tar
 
       - name: Push staging image to DOCR
-        run: docker image push --all-tags registry.digitalocean.com/${{ env.IMAGE_NAME }}
+        run: docker image push --all-tags ${{ env.IMAGE_NAME }}
