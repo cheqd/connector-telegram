@@ -7,16 +7,6 @@ defaults:
 
 
 jobs:
-
-  sh-euox-pipefail-check:
-    name: "Shell pipefail check"
-    runs-on: ubuntu-latest
-    
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Run 'set -euox pipefail' check
-        run: bash ./.github/scripts/ensure_set_euox_pipefail.sh
   
   md-link-check:
     name: "Broken Markdown links"
@@ -40,26 +30,21 @@ jobs:
       with:
         fetch-depth: 0 # Required to fetch version
     
-    # - name: Run Super Linter
-    #   uses: github/super-linter/slim@v4
-    #   env:
-    #     IGNORE_GITIGNORED_FILES: true
-    #     DEFAULT_BRANCH: main
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    #     LOG_LEVEL: WARN
-    #     VALIDATE_ALL_CODEBASE: true
-    #     MULTI_STATUS: true
+    - name: Run Super Linter
+      uses: github/super-linter/slim@v4
+      env:
+        IGNORE_GITIGNORED_FILES: true
+        DEFAULT_BRANCH: develop
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        LOG_LEVEL: WARN
+        VALIDATE_ALL_CODEBASE: true
+        MULTI_STATUS: true
 
-    #     VALIDATE_BASH: true
-    #     VALIDATE_DOCKERFILE_HADOLINT: true
-    #     VALIDATE_GITHUB_ACTIONS: true
-    #     VALIDATE_JAVASCRIPT_ES: true
-    #     VALIDATE_JSONC: true
-    #     VALIDATE_MARKDOWN: true
-    #     VALIDATE_OPENAPI: true
-    #     VALIDATE_PYTHON_PYLINT: true
-    #     VALIDATE_TERRAGRUNT: true
-    #     VALIDATE_TSX: true
-    #     VALIDATE_TYPESCRIPT_ES: true
-    #     VALIDATE_XML: true
-    #     VALIDATE_YAML: true
+        VALIDATE_BASH: true
+        VALIDATE_DOCKERFILE_HADOLINT: true
+        VALIDATE_GITHUB_ACTIONS: true
+        VALIDATE_JAVASCRIPT_ES: true
+        VALIDATE_JSONC: true
+        VALIDATE_MARKDOWN: true
+        VALIDATE_TSX: true
+        VALIDATE_TYPESCRIPT_ES: true
