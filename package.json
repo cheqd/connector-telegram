@@ -1,5 +1,5 @@
 {
-    "name": "root",
+    "name": "@cheqd/creds-auth",
     "private": true,
     "scripts": {
         "package:sync": "node templates/sync-to-current.js",
