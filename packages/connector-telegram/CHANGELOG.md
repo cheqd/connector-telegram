@@ -1,5 +1,15 @@
 # Changelog
 
+# [@cheqd/connector-telegram-v1.0.3-develop.1](https://github.com/cheqd/creds-auth/compare/1.0.2...1.0.3-develop.1) (2023-04-13)
+
+
+### Bug Fixes
+
+* Debugging behaviour ([390fb4b](https://github.com/cheqd/creds-auth/commit/390fb4b8969f16e29b2e000c706eddb273d3d9a2))
+* Enriched redirect URL with search params ([a165e13](https://github.com/cheqd/creds-auth/commit/a165e13a4619b8e5512139095d1103014d36c414))
+* Overall re-arrangement ([a1ff42a](https://github.com/cheqd/creds-auth/commit/a1ff42a8eb80f422dc4e89c04cd120eb49aec944))
+* Removed redundant prints ([09cd0bc](https://github.com/cheqd/creds-auth/commit/09cd0bc50d1decccb60fd18daeea2b2488f8707e))
+
 # [@cheqd/connector-telegram-v1.0.2-develop.6](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.5...1.0.2-develop.6) (2023-04-04)
 
 # [@cheqd/connector-telegram-v1.0.2-develop.5](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.4...1.0.2-develop.5) (2023-03-13)
