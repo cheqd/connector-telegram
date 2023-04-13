@@ -9,24 +9,19 @@ jobs:
   release-npm:
     name: "Semantic Release"
     runs-on: ubuntu-latest
-    
+    outputs:
+      VERSION: ${{ steps.set-version.outputs.VERSION }}
+
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7
-
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          # cache: 'pnpm' # running pnpm install will use the cache automatically
-
-      - name: Sync package.json and install deps
-        run: pnpm package:sync --silent && pnpm ci
+          cache: 'pnpm'
 
       - name: "Obtain Github App token"
         id: app-token
@@ -35,7 +30,10 @@ jobs:
           app_id: ${{ secrets.BOT_APP_ID }}
           private_key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
-      - name: Build
+      - name: "Clean install dependencies"
+        run: pnpm install --frozen-lockfile
+
+      - name: "Build"
         run: pnpm build
 
       - name: "Execute Semantic Release"
@@ -68,12 +66,18 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
 
+      - name: Set version number
+        id: set-version
+        run: |
+          VERSION=$( git describe --tags ${{ github.sha }})
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+
   release-docker:
-    name: "Logto Docker image with built-in custom connectors"
+    name: "Custom LogTo Docker image"
     runs-on: ubuntu-latest
     if: ${{ github.ref_name == 'main' }}
     env:
-      IMAGE_NAME: ${{ github.repository }}
+      IMAGE_NAME: registry.digitalocean.com/${{ github.repository }}
     environment: 
       name: production
       url: https://auth.creds.xyz
@@ -102,17 +106,21 @@ jobs:
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: registry.digitalocean.com/${{ env.IMAGE_NAME }}
+          images: ${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=auto
           tags: |
+            type=semver,pattern={{version}},value=${{ needs.release-npm.outputs.VERSION }}
             type=raw,value=production-latest
             type=sha,format=long
           labels: |
-            org.opencontainers.image.description="Logto Docker image with custom connectors"
-            org.opencontainers.image.source="https://github.com/cheqd/community-credentials-auth"
+            org.opencontainers.image.description="Custom LogTo Docker image"
+            org.opencontainers.image.source="https://github.com/cheqd/creds-auth"
             org.opencontainers.image.vendor="Cheqd Foundation Limited"
             org.opencontainers.image.created={{date 'dddd, MMMM Do YYYY, h:mm:ss a'}}
             org.opencontainers.image.documentation="https://product.cheqd.io/"
-      - name: Build Logto image
+
+      - name: "Build LogTo image"
         uses: docker/build-push-action@v4
         with:
           context: .
@@ -127,18 +135,3 @@ jobs:
 
       - name: Push Logto image
         run: docker image push --all-tags registry.digitalocean.com/${{ env.IMAGE_NAME }}
-
-  cache-purge:
-    name: "Purge branch Actions cache"
-    needs: release-docker
-    if: ${{ github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
-    
-    steps:
-
-      - name: "Delete Branch Cache Action"
-        uses: snnaplab/delete-branch-cache-action@v1.0.0
-        with:
-          # Specify explicitly because the ref at the time of merging will be a branch name such as 'main', 'develop'
-          ref: refs/pull/${{ github.event.number }}/merge
-          github-token: ${{ secrets.GITHUB_TOKEN }}
