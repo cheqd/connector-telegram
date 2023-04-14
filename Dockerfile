@@ -1,4 +1,3 @@
-# syntax=docker/dockerfile:1.3
 ###############################################################
 ###    STAGE 1: Build LogTo runner with customisations      ###
 ###############################################################
@@ -23,7 +22,8 @@ ARG ADMIN_DISABLE_LOCALHOST=false
 ARG TRUST_PROXY_HEADER=true
 ARG ADMIN_ENDPOINT
 ARG ENDPOINT
-ARG NODE_EXTRA_CA_CERTS ${NODE_EXTRA_CA_CERTS}
+ARG NODE_EXTRA_CA_CERTS="/usr/local/share/ca-certificates/do-cert.crt"
+ARG DOCKER_BUILDKIT=1
 
 # Run-time environment variables
 ENV NPM_CONFIG_LOGLEVEL ${NPM_CONFIG_LOGLEVEL}
@@ -33,17 +33,14 @@ ENV ADMIN_DISABLE_LOCALHOST ${ADMIN_DISABLE_LOCALHOST}
 ENV TRUST_PROXY_HEADER ${TRUST_PROXY_HEADER}
 ENV ADMIN_ENDPOINT ${ADMIN_ENDPOINT}
 ENV ENDPOINT ${ENDPOINT}
-ENV NODE_EXTRA_CA_CERTS /usr/local/share/ca-certificates/do-cert.crt
-ENV DOCKER_BUILDKIT 1
+ENV NODE_EXTRA_CA_CERTS ${NODE_EXTRA_CA_CERTS}
 
 # Set working directory
 WORKDIR /custom-connectors
 
-# Install toolchain
-RUN npm install -g -D pnpm@latest-7
-
 # Install dependencies and built the npm package
-RUN pnpm ci && pnpm build
+RUN pnpm install --frozen-lockfile \
+    && pnpm build
 
 # Copy the build output
 RUN mv /custom-connectors/packages/* /etc/logto/packages/core/connectors/
