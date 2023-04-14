@@ -13,9 +13,6 @@
     "ignorePatterns": [
         {
             "pattern": "^https://resolver.cheqd.net/"
-        },
-        {
-            "pattern": "^https://github.com/cheqd/community-credentials-auth/"
         }
     ],
     "retryOn429": true
