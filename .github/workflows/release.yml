@@ -6,7 +6,7 @@ defaults:
     shell: bash
 
 jobs:
-  release-npm:
+  release:
     name: "Semantic Release"
     runs-on: ubuntu-latest
     
@@ -15,19 +15,12 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
-
-      - uses: pnpm/action-setup@v2.2.2
-        with:
-          version: 7
-
+      
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          # cache: 'pnpm' # running pnpm install will use the cache automatically
-
-      - name: Sync package.json and install deps
-        run: pnpm package:sync --silent && pnpm ci
-
+          cache: 'npm'
+      
       - name: "Obtain Github App token"
         id: app-token
         uses: getsentry/action-github-app-token@v2.0.0
@@ -35,110 +28,14 @@ jobs:
           app_id: ${{ secrets.BOT_APP_ID }}
           private_key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
-      - name: Build
-        run: pnpm build
+      - name: "Clean install dependencies"
+        run: npm ci
+
+      - name: "Run npm build"
+        run: npm run build
 
       - name: "Execute Semantic Release"
-        run: pnpm -rc --workspace-concurrency=1 exec -- npx --no-install semantic-release -e semantic-release-monorepo
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-
-      - name: "Write NPM version"
-        run: |
-          NPM_VERSION=$( git describe --tags --abbrev=0 )
-          pnpm -r exec sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*.*\"/\"version\": \"$NPM_VERSION\"/" package.json
-        if: ${{ success() }}
-
-      - name: Publish to NPM
-        run: |
-          pnpm -r version
-          NPM_TAG=$( [[ "${{ github.ref }}" == "refs/heads/main" ]] && echo "latest" || echo "beta" )
-          pnpm -r publish --access public --tag "$NPM_TAG" --registry "https://registry.npmjs.org/:_authToken=${NPM_TOKEN}" --no-git-checks
-        env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: "Sync internal package version"
-        run: |
-          git remote set-url origin https://cheqd:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-          git add **/package.extend.json
-          git commit -m "chore(release): Sync package version [skip ci]"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-
-  release-docker:
-    name: "Logto Docker image with built-in custom connectors"
-    runs-on: ubuntu-latest
-    if: ${{ github.ref_name == 'main' }}
-    env:
-      IMAGE_NAME: ${{ github.repository }}
-    environment: 
-      name: production
-      url: https://auth.creds.xyz
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-        id: buildx
-        with:
-          install: true
-          version: latest
-
-      - name: Install DigitalOcean CLI
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-      - name: Login to DigitalOcean Container Registry
-        run: doctl registry login --expiry-seconds 600
-
-      - name: Configure Docker image metadata
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: registry.digitalocean.com/${{ env.IMAGE_NAME }}
-          tags: |
-            type=raw,value=production-latest
-            type=sha,format=long
-          labels: |
-            org.opencontainers.image.description="Logto Docker image with custom connectors"
-            org.opencontainers.image.source="https://github.com/cheqd/community-credentials-auth"
-            org.opencontainers.image.vendor="Cheqd Foundation Limited"
-            org.opencontainers.image.created={{date 'dddd, MMMM Do YYYY, h:mm:ss a'}}
-            org.opencontainers.image.documentation="https://product.cheqd.io/"
-      - name: Build Logto image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile
-          platforms: linux/amd64
-          load: true
-          target: runner
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=min
-
-      - name: Push Logto image
-        run: docker image push --all-tags registry.digitalocean.com/${{ env.IMAGE_NAME }}
-
-  cache-purge:
-    name: "Purge branch Actions cache"
-    needs: release-docker
-    if: ${{ github.event_name == 'pull_request' }}
-    runs-on: ubuntu-latest
-    
-    steps:
-
-      - name: "Delete Branch Cache Action"
-        uses: snnaplab/delete-branch-cache-action@v1.0.0
-        with:
-          # Specify explicitly because the ref at the time of merging will be a branch name such as 'main', 'develop'
-          ref: refs/pull/${{ github.event.number }}/merge
-          github-token: ${{ secrets.GITHUB_TOKEN }}

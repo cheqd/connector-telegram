@@ -1,14 +1,43 @@
-# Default .github community repo for cheqd
+# Telegram OAuth connector for LogTo
 
-[![GitHub release (latest by date)](https://img.shields.io/github/v/release/cheqd/.github?color=green&label=stable%20release&style=flat-square)](https://github.com/cheqd/.github/releases/latest) ![GitHub Release Date](https://img.shields.io/github/release-date/cheqd/.github?color=green&style=flat-square) [![GitHub license](https://img.shields.io/github/license/cheqd/.github?color=blue&style=flat-square)](https://github.com/cheqd/.github/blob/main/LICENSE)
+[![GitHub release (latest by date)](https://img.shields.io/github/v/release/cheqd/connector-telegram?color=green&label=stable%20release&style=flat-square)](https://github.com/cheqd/connector-telegram/releases/latest) ![GitHub Release Date](https://img.shields.io/github/release-date/cheqd/connector-telegram?color=green&style=flat-square) [![GitHub license](https://img.shields.io/github/license/cheqd/connector-telegram?color=blue&style=flat-square)](https://github.com/cheqd/connector-telegram/blob/main/LICENSE)
 
-[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/cheqd/.github?include_prereleases&label=dev%20release&style=flat-square)](https://github.com/cheqd/.github/releases/) ![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/cheqd/.github/latest?style=flat-square) [![GitHub contributors](https://img.shields.io/github/contributors/cheqd/.github?label=contributors%20%E2%9D%A4%EF%B8%8F&style=flat-square)](https://github.com/cheqd/.github/graphs/contributors)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/cheqd/connector-telegram?include_prereleases&label=dev%20release&style=flat-square)](https://github.com/cheqd/connector-telegram/releases/) ![GitHub commits since latest release (by date)](https://img.shields.io/github/commits-since/cheqd/connector-telegram/latest?style=flat-square) [![GitHub contributors](https://img.shields.io/github/contributors/cheqd/connector-telegram?label=contributors%20%E2%9D%A4%EF%B8%8F&style=flat-square)](https://github.com/cheqd/connector-telegram/graphs/contributors)
 
-[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/cheqd/.github/dispatch.yml?label=workflows&style=flat-square)](https://github.com/cheqd/.github/actions/workflows/dispatch.yml) [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/cheqd/.github/codeql.yml?label=CodeQL&style=flat-square)](https://github.com/cheqd/.github/actions/workflows/codeql.yml) ![GitHub repo size](https://img.shields.io/github/repo-size/cheqd/.github?style=flat-square)
+[![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/cheqd/connector-telegram/dispatch.yml?label=workflows&style=flat-square)](https://github.com/cheqd/connector-telegram/actions/workflows/dispatch.yml) [![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/cheqd/connector-telegram/codeql.yml?label=CodeQL&style=flat-square)](https://github.com/cheqd/connector-telegram/actions/workflows/codeql.yml) ![GitHub repo size](https://img.shields.io/github/repo-size/cheqd/connector-telegram?style=flat-square)
 
 ## ℹ️ Overview
 
-Default template for cheqd repos
+This NPM package is [a custom OAuth connector designed for LogTo](https://docs.logto.io/docs/recipes/create-your-connector/) for use with [Telegram](https://core.telegram.org/api). [LogTo](https://logto.io/) is [an open-source identity management software](https://docs.logto.io/) with out-of-the-box support for many social connectors, and allows custom connectors to be created.
+
+## 🛠️ Configuration
+
+Once you've added this custom connector to LogTo (see *Developer Guide*) below, you need to configure your connector. The steps defined below mirror the [setup guide for the Telegram Login Button widget](https://core.telegram.org/widgets/login).
+
+1. [Register a new Telegram bot](https://core.telegram.org/bots#3-how-do-i-create-a-bot) using the [`@Botfather` Telegram bot](https://t.me/botfather).
+2. Send the `/setdomain` message to `@Botfather` to set a public redirect URI for the bot.
+   1. Telegram expects this domain to be **publicly-routable**. Therefore, trying to specify this as `localhost` or a non-public domain name doesn't work.
+3. Copy the Bot Token and the Bot Domain. These credentials need to be [set in your LogTo admin dashboard](https://docs.logto.io/docs/recipes/configure-connectors/configure-social-connector) to configure and activate the connector.
+
+## 🧑‍💻 Developer Guide
+
+### Use with LogTo
+
+To use this connector with LogTo, copy this source tree into a new folder [under `packages/connectors/connectors-telegram` on a copy of the LogTo repository](https://github.com/logto-io/logto/tree/master/packages/connectors).
+
+You can then use `pnpm` to build the whole project at the top level of the LogTo repo (this will do a recursive build):
+
+```bash
+pnpm install
+pnpm build
+```
+
+Or, build *just* this project as a library using NPM:
+
+```bash
+npm install
+npm build
+```
 
 ## 💬 Community
 
