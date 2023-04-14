@@ -15,8 +15,8 @@ export const defaultMetadata: ConnectorMetadata = {
         "tr-TR": "Telegram",
         ko: "Telegram",
     },
-    logo: "./config/logo.svg",
-    logoDark: "./config/logo-dark.svg",
+    logo: "./logo.svg",
+    logoDark: "./logo-dark.svg",
     description: {
         en: "Telegram is a cloud-based mobile and desktop messaging app with a focus on security and speed.",
         "zh-CN":
@@ -26,7 +26,7 @@ export const defaultMetadata: ConnectorMetadata = {
         ko: "Telegram은 보안과 속도에 중점을 둔 클라우드 기반 모바일 및 데스크톱 메시징 앱입니다.",
     },
     readme: "./README.md",
-    configTemplate: "./config/config-template.json",
+    configTemplate: "./docs/config-template.json",
 };
 
 export const defaultTimeout = 5000;
