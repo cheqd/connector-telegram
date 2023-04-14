@@ -15,8 +15,8 @@ export const defaultMetadata: ConnectorMetadata = {
         "tr-TR": "Telegram",
         ko: "Telegram",
     },
-    logo: "./logo.svg",
-    logoDark: "./logo-dark.svg",
+    logo: "./config/logo.svg",
+    logoDark: "./config/logo-dark.svg",
     description: {
         en: "Telegram is a cloud-based mobile and desktop messaging app with a focus on security and speed.",
         "zh-CN":
