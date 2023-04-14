@@ -9,6 +9,8 @@ jobs:
   release-npm:
     name: "Semantic Release"
     runs-on: ubuntu-latest
+    defaults:
+      working-directory: ./packages/connector-telegram
     outputs:
       VERSION: ${{ steps.set-version.outputs.VERSION }}
 
@@ -31,7 +33,7 @@ jobs:
           private_key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
       - name: "Clean install dependencies"
-        run: pnpm install --frozen-lockfile
+        run: pnpm ci
 
       - name: "Build"
         run: pnpm build

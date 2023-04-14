@@ -26,7 +26,7 @@ export const defaultMetadata: ConnectorMetadata = {
         ko: "Telegram은 보안과 속도에 중점을 둔 클라우드 기반 모바일 및 데스크톱 메시징 앱입니다.",
     },
     readme: "./README.md",
-    configTemplate: "./docs/config-template.json",
+    configTemplate: "./config/config-template.json",
 };
 
 export const defaultTimeout = 5000;
