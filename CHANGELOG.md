@@ -1,6 +1,6 @@
 # Changelog
 
-### [@cheqd/connector-telegram-v1.0.3-develop.1](https://github.com/cheqd/connector-telegram/compare/1.0.2...1.0.3-develop.1) (2023-04-13)
+## [@cheqd/connector-telegram-v1.0.3-develop.1](https://github.com/cheqd/connector-telegram/compare/1.0.2...1.0.3-develop.1) (2023-04-13)
 
 
 ### Bug Fixes
