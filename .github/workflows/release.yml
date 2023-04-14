@@ -6,25 +6,22 @@ defaults:
     shell: bash
 
 jobs:
-  release-npm:
+  release:
     name: "Semantic Release"
     runs-on: ubuntu-latest
-    defaults:
-      working-directory: ./packages/connector-telegram
-    outputs:
-      VERSION: ${{ steps.set-version.outputs.VERSION }}
-
+    
     steps:
       - uses: actions/checkout@v3
         with:
           fetch-depth: 0
           persist-credentials: false
-
+      
       - uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'pnpm'
-
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
+      
       - name: "Obtain Github App token"
         id: app-token
         uses: getsentry/action-github-app-token@v2.0.0
@@ -33,107 +30,13 @@ jobs:
           private_key: ${{ secrets.BOT_APP_PRIVATE_KEY }}
 
       - name: "Clean install dependencies"
-        run: pnpm ci
+        run: npm ci
 
-      - name: "Build"
-        run: pnpm build
+      - name: "Run npm build"
+        run: npm run build
 
       - name: "Execute Semantic Release"
-        run: pnpm -rc --workspace-concurrency=1 exec -- npx --no-install semantic-release -e semantic-release-monorepo
+        run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-
-      - name: "Write NPM version"
-        run: |
-          NPM_VERSION=$( git describe --tags --abbrev=0 )
-          pnpm -r exec sed -i "s/\"version\": \"[0-9]*\.[0-9]*\.[0-9]*.*\"/\"version\": \"$NPM_VERSION\"/" package.json
-        if: ${{ success() }}
-
-      - name: Publish to NPM
-        run: |
-          pnpm -r version
-          NPM_TAG=$( [[ "${{ github.ref }}" == "refs/heads/main" ]] && echo "latest" || echo "beta" )
-          pnpm -r publish --access public --tag "$NPM_TAG" --registry "https://registry.npmjs.org/:_authToken=${NPM_TOKEN}" --no-git-checks
-        env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      - name: "Sync internal package version"
-        run: |
-          git remote set-url origin https://cheqd:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git config user.name "github-actions[bot]"
-          git add **/package.extend.json
-          git commit -m "chore(release): Sync package version [skip ci]"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-
-      - name: Set version number
-        id: set-version
-        run: |
-          VERSION=$( git describe --tags ${{ github.sha }})
-          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
-
-  release-docker:
-    name: "Custom LogTo Docker image"
-    runs-on: ubuntu-latest
-    if: ${{ github.ref_name == 'main' }}
-    env:
-      IMAGE_NAME: registry.digitalocean.com/${{ github.repository }}
-    environment: 
-      name: production
-      url: https://admin-auth.creds.xyz
-
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
-        id: buildx
-        with:
-          install: true
-          version: latest
-
-      - name: Install DigitalOcean CLI
-        uses: digitalocean/action-doctl@v2
-        with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-
-      - name: Login to DigitalOcean Container Registry
-        run: doctl registry login --expiry-seconds 600
-
-      - name: Configure Docker image metadata
-        id: meta
-        uses: docker/metadata-action@v4
-        with:
-          images: ${{ env.IMAGE_NAME }}
-          flavor: |
-            latest=auto
-          tags: |
-            type=semver,pattern={{version}},value=${{ needs.release-npm.outputs.VERSION }}
-            type=raw,value=production-latest
-            type=sha,format=long
-          labels: |
-            org.opencontainers.image.description="Custom LogTo Docker image"
-            org.opencontainers.image.source="https://github.com/cheqd/creds-auth"
-            org.opencontainers.image.vendor="Cheqd Foundation Limited"
-            org.opencontainers.image.created={{date 'dddd, MMMM Do YYYY, h:mm:ss a'}}
-            org.opencontainers.image.documentation="https://product.cheqd.io/"
-
-      - name: "Build LogTo image"
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile
-          platforms: linux/amd64
-          load: true
-          target: runner
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=min
-
-      - name: Push Logto image
-        run: docker image push --all-tags ${{ env.IMAGE_NAME }}
