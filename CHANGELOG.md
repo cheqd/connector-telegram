@@ -10,9 +10,9 @@
 * Overall re-arrangement ([a1ff42a](https://github.com/cheqd/connector-telegram/commit/a1ff42a8eb80f422dc4e89c04cd120eb49aec944))
 * Removed redundant prints ([09cd0bc](https://github.com/cheqd/connector-telegram/commit/09cd0bc50d1decccb60fd18daeea2b2488f8707e))
 
-### [@cheqd/connector-telegram-v1.0.2-develop.6](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.5...1.0.2-develop.6) (2023-04-04)
+## [@cheqd/connector-telegram-v1.0.2-develop.6](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.5...1.0.2-develop.6) (2023-04-04)
 
-### [@cheqd/connector-telegram-v1.0.2-develop.5](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.4...1.0.2-develop.5) (2023-03-13)
+## [@cheqd/connector-telegram-v1.0.2-develop.5](https://github.com/cheqd/community-credentials-auth/compare/1.0.2-develop.4...1.0.2-develop.5) (2023-03-13)
 
 
 ### Bug Fixes
