@@ -1,18 +1,27 @@
 {
   "name": "@cheqd/connector-telegram",
   "version": "1.0.2-develop.6",
-  "description": "Telegram OAuth connector implementation.",
+  "description": "Telegram OAuth connector for LogTo",
   "author": "Cheqd Foundation Limited (https://github.com/cheqd)",
+  "license": "Apache-2.0",
+  "repository": "https://github.com/cheqd/connector-telegram.git",
+  "keywords": [
+    "cheqd",
+    "logto",
+    "telegram",
+    "oauth"
+  ],
+  "bugs": {
+    "url": "https://github.com/cheqd/connector-telegram/issues"
+  },
+  "homepage": "https://github.com/cheqd/connector-telegram#readme",
   "main": "./lib/index.js",
   "module": "./lib/index.js",
   "exports": "./lib/index.js",
-  "license": "Apache-2.0",
   "type": "module",
   "files": [
     "lib",
-    "docs",
-    "logo.svg",
-    "logo-dark.svg"
+    "config"
   ],
   "scripts": {
     "precommit": "lint-staged",
