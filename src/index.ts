@@ -26,6 +26,11 @@ const getAuthorizationUri = (getConfig: GetConnectorConfig): GetAuthorizationUri
     validateConfig<TelegramConfig>(config, telegramConfigGuard);
     const tokenParts = config.botToken.split(':');
     const botId = tokenParts[0];
+    if (!botId || botId === '') {
+        throw new ConnectorError(ConnectorErrorCodes.InvalidConfig, {
+            error: 'Invalid telegram bot token',
+        });
+    }
 
     // reconstruct the return_to url
     const returnTo = new URL(redirectUri);
@@ -34,7 +39,7 @@ const getAuthorizationUri = (getConfig: GetConnectorConfig): GetAuthorizationUri
     returnTo.searchParams.set('state', state);
 
     const queryParameters = new URLSearchParams({
-        bot_id: botId!,
+        bot_id: botId,
         origin: config.origin,
         embed: '1',
         request_access: scope,
