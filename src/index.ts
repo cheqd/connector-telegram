@@ -1,3 +1,4 @@
+import { createHash, createHmac } from 'node:crypto';
 import {
     GetAuthorizationUri,
     GetUserInfo,
@@ -52,6 +53,26 @@ const authorizationCallbackHandler = async (parameterObject: unknown) => {
     return result.data;
 };
 
+const performTelegramIntegrityCheck = (
+    telegramRepsonse: Record<string, unknown>,
+    botToken: string
+): boolean => {
+    const fields: string[] = [];
+    for (const key of Object.keys(telegramRepsonse)) {
+        if (key === 'hash') {
+            continue;
+        }
+        const value = String(telegramRepsonse[key]);
+        const field = key + '=' + value;
+        fields.push(field);
+    }
+    const data = fields.sort().join('\n');
+
+    const botSecretKey = createHash('sha256').update(Buffer.from(botToken)).digest();
+    const dataHash = createHmac('sha256', botSecretKey).update(data).digest('hex');
+    return dataHash === telegramRepsonse.hash;
+};
+
 const getUserInfo = (getConfig: GetConnectorConfig): GetUserInfo => async (data) => {
     // get tgAuthResult from parameterObject
     const { tgAuthResult } = await authorizationCallbackHandler(data);
@@ -70,7 +91,13 @@ const getUserInfo = (getConfig: GetConnectorConfig): GetUserInfo => async (data)
 
     // validate parsed object
     if (!parsed.success) {
-    throw new ConnectorError(ConnectorErrorCodes.InvalidResponse, parsed.error);
+        throw new ConnectorError(ConnectorErrorCodes.InvalidResponse, parsed.error);
+    }
+    const ok = performTelegramIntegrityCheck(parsed.data, config.botToken);
+    if (!ok) {
+        throw new ConnectorError(ConnectorErrorCodes.AuthorizationFailed, {
+            error: 'Telegram data integrity check failed',
+        });
     }
 
     return {
