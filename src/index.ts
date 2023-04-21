@@ -26,7 +26,7 @@ const getAuthorizationUri = (getConfig: GetConnectorConfig): GetAuthorizationUri
     validateConfig<TelegramConfig>(config, telegramConfigGuard);
     const tokenParts = config.botToken.split(':');
     const botId = tokenParts[0];
-    if (!botId || botId === '') {
+    if (!botId) {
         throw new ConnectorError(ConnectorErrorCodes.InvalidConfig, {
             error: 'Invalid telegram bot token',
         });
