@@ -56,7 +56,7 @@
     "@semantic-release/release-notes-generator": "^10.0.3",
     "@silverhand/eslint-config": "3.0.1",
     "@silverhand/jest-config": "3.0.0",
-    "@silverhand/ts-config": "^2.1.0",
+    "@silverhand/ts-config": "^3.0.0",
     "@types/jest": "^29.2.4",
     "@types/node": "^20.1.4",
     "@types/supertest": "^2.0.11",
@@ -71,7 +71,7 @@
     "rollup-plugin-summary": "^2.0.0",
     "semantic-release": "^21.0.1",
     "supertest": "^6.2.2",
-    "typescript": "^4.9.4"
+    "typescript": "^5.0.4"
   },
   "engines": {
     "node": "^16.13.0 || ^18.12.0"
