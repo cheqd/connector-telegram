@@ -67,4 +67,4 @@ USER node
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
 # Run the application
-ENTRYPOINT [ "/etc/logto/entrypoint.sh" ]
+ENTRYPOINT [ "entrypoint.sh" ]

@@ -26,4 +26,4 @@ jobs:
 
       # Uncomment this step when we have tests
       # - name: "Execute tests"
-      #   run: npm run build
+      #   run: npm test

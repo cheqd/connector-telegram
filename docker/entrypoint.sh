@@ -2,6 +2,9 @@
 
 set -euo pipefail
 
+# Define the flags that we want to accept.
+flags=("--alter-db")
+
 # Create blank custom CA certificate file
 touch /usr/local/share/ca-certificates/do-cert.crt
 
@@ -14,5 +17,15 @@ chmod 644 /usr/local/share/ca-certificates/do-cert.crt
 # Update CA certificates
 update-ca-certificates
 
-# Run the application
-npm start
+# Use getopts to parse the flags that are passed to the script.
+while getopts "${flags[@]}" opt; do
+  case "$opt" in
+    "-a")
+      version_number=${OPTARG}
+      npx @logto/cli db seed all --swe npx @logto/cli db alteration deploy "$version_number"
+      ;;
+    *)
+      npm start
+      ;;
+  esac
+done
