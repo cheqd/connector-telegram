@@ -28,13 +28,14 @@ WORKDIR /etc/logto
 
 # Install pre-requisites
 RUN apk update && \
-    apk add --no-cache bash ca-certificates
+    apk add --no-cache bash ca-certificates sudo && \
+    echo "ALL ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 # Copy files from builder
-COPY --from=builder --chown=node:node /home/node/app /etc/logto/packages/core/connectors/
+COPY --from=builder /home/node/app /etc/logto/packages/core/connectors/@logto-connector-telegram
 
 # Add entrypoint script
-COPY --chown=node:node docker/entrypoint.sh /etc/logto/entrypoint.sh
+COPY docker/entrypoint.sh /etc/logto/entrypoint.sh
 
 # Make entrypoint script executable
 RUN chmod +x entrypoint.sh
