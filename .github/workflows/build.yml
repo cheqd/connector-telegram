@@ -6,7 +6,8 @@ defaults:
     shell: bash
 
 jobs:
-  build:
+  
+  build-node:
     name: "Build Node.js"
     runs-on: ubuntu-latest
     
@@ -27,3 +28,62 @@ jobs:
       # Uncomment this step when we have tests
       # - name: "Execute tests"
       #   run: npm test
+
+  build-docker:
+    # Build custom staging Docker image for LogTo
+    name: "LogTo Docker image - Staging"
+    runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: registry.digitalocean.com/cheqd/logto
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install DigitalOcean CLI
+        # Required because base Docker image is stored on DOCR
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Login to DOCR
+        # Required to fetch base Docker image from DOCR
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        id: buildx
+        with:
+          install: true
+          version: latest
+      
+      - name: Configure Docker image metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          tags: |
+            type=ref,event=branch
+            type=raw,value=staging-latest
+            type=sha,format=long
+
+      - name: Build image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: docker/Dockerfile
+          platforms: linux/amd64
+          load: true
+          target: runner
+          tags: ${{ steps.meta.outputs.tags }}
+          outputs: type=docker,dest=/tmp/logto.tar
+          cache-from: type=gha
+          cache-to: type=gha,mode=min
+
+      - name: Save Docker image
+        run:  docker save ${{ env.IMAGE_NAME }} > logto-staging.tar
+
+      - name: Upload Docker test image
+        uses: actions/upload-artifact@v3
+        with:
+          name: logto-staging.tar
+          path: logto-staging.tar
