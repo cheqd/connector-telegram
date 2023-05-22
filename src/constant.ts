@@ -28,18 +28,18 @@ export const defaultMetadata: ConnectorMetadata = {
     readme: "./README.md",
     formItems: [
         {
-          key: 'clientId',
-          type: ConnectorConfigFormItemType.Text,
-          required: true,
-          label: 'Client ID',
-          placeholder: '<client-id>',
+            key: 'botToken',
+            type: ConnectorConfigFormItemType.Text,
+            required: true,
+            label: 'Telegram Bot Token',
+            placeholder: 'secret-value',
         },
         {
-          key: 'clientSecret',
-          type: ConnectorConfigFormItemType.Text,
-          required: true,
-          label: 'Client Secret',
-          placeholder: '<client-secret>',
+            key: 'origin',
+            type: ConnectorConfigFormItemType.Text,
+            required: true,
+            label: 'Bot Origin',
+            placeholder: 'https://example.com',
         }
       ]
 };
