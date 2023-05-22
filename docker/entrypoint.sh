@@ -2,31 +2,35 @@
 
 set -euo pipefail
 
-# Define the flags that we want to accept.
-flags=("--alter-db")
-
 # Create blank custom CA certificate file
 sudo touch /usr/local/share/ca-certificates/do-cert.crt
 
 # Insert custom CA certificate contents from environment variable into file
 echo "$DO_CA_CERT" | sudo tee /usr/local/share/ca-certificates/do-cert.crt > /dev/null
 
-# Set file permissions
-sudo chmod 644 /usr/local/share/ca-certificates/do-cert.crt
-
 # Update CA certificates
 sudo update-ca-certificates
 
-# Use getopts to parse the flags that are passed to the script.
-while getopts "${flags[@]}" opt; do
-  case "$opt" in
-    "-a")
-      version_number=${OPTARG}
-      npx @logto/cli db seed all --swe
-	  npx @logto/cli db alteration deploy "$version_number"
+# Remove node user from sudoers group
+sudo sed -i '$ d' /etc/sudoers
+
+if [[ $# -eq 0 ]]; then
+  # No flags passed, execute actions for no flag
+  echo "npm start"
+else
+  while getopts "a:" opt; do
+    case "$opt" in
+      a)
+        # Flag -a or --alter-db was passed, execute actions for alter-db
+        version_number=${OPTARG}
+        echo "Executing actions for --alter-db for version $version_number"
+        npx @logto/cli db seed all --swe
+        npx @logto/cli db alteration deploy "$version_number"
+        # Add your code for actions related to --alter-db here
+        ;;
+      *)
+        echo "Invalid option. Pass the -a flag and version number to execute DB alteration script."
       ;;
-    *)
-      npm start
-      ;;
-  esac
-done
+    esac
+  done
+fi
