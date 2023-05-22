@@ -15,18 +15,17 @@ sudo update-ca-certificates
 sudo sed -i '$ d' /etc/sudoers
 
 if [[ $# -eq 0 ]]; then
-  # No flags passed, execute actions for no flag
-  echo "npm start"
+  # No flags passed, executing npm start
+  npm start
 else
   while getopts "a:" opt; do
     case "$opt" in
       a)
-        # Flag -a or --alter-db was passed, execute actions for alter-db
+        # Flag a for passed for executing DB alteration commands
         version_number=${OPTARG}
         echo "Executing actions for --alter-db for version $version_number"
         npx @logto/cli db seed all --swe
         npx @logto/cli db alteration deploy "$version_number"
-        # Add your code for actions related to --alter-db here
         ;;
       *)
         echo "Invalid option. Pass the -a flag and version number to execute DB alteration script."
