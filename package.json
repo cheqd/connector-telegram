@@ -28,10 +28,9 @@
     "build": "rm -rf lib/ && tsc -p tsconfig.build.json --noEmit && rollup -c",
     "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput --incremental",
     "lint": "eslint --ext .ts src",
-    "lint:report": "pnpm lint --format json --output-file report.json",
-    "test": "pnpm build:test && NODE_OPTIONS=--experimental-vm-modules jest",
-    "test:coverage": "pnpm run test --coverage --silent",
-    "prepack": "pnpm build"
+    "lint:report": "npm lint --format json --output-file report.json",
+    "test": "npm build:test && NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:coverage": "npm run test --coverage --silent"
   },
   "dependencies": {
     "@logto/connector-kit": "1.1.1",
