@@ -11,22 +11,48 @@ echo "$DO_CA_CERT" | tee /usr/local/share/ca-certificates/do-cert.crt > /dev/nul
 # Update CA certificates
 update-ca-certificates
 
-if [[ $# -eq 0 ]]; then
-  # No flags passed, executing npm start
+# Default actions
+default_start() {
+  echo "Executing default start"
+
+  # Start LogTo
   npm start
-else
-  while getopts "db:" opt; do
-    case "$opt" in
-      db)
-        # Flag a for passed for executing DB alteration commands
-        version_number=${OPTARG}
-        echo "Executing db alterations for version $version_number"
-        npx @logto/cli db seed all --swe
-        npx @logto/cli db alteration deploy "$version_number"
-        ;;
-      *)
-        echo "Invalid option. Pass the -a flag and version number to execute DB alteration script."
+}
+
+# Alter the database
+alter_db() {
+  if [[ -z $1 ]]; then
+    echo "Please provide a version number after --alter-db."
+    exit 1
+  fi
+
+  version=$1
+  echo "Altering the database for LogTo version number $version."
+  
+  # Execute LogTo DB alteration scripts
+  npx @logto/cli db seed all --swe
+  npx @logto/cli db alteration deploy "$version"
+}
+
+# Parse command line arguments
+while [[ $# -gt 0 ]]; do
+  key="$1"
+
+  case $key in
+    --alter-db)
+      alter_db "$2"
+      shift
       ;;
-    esac
-  done
+    *)
+      echo "Unknown option: $key"
+      exit 1
+      ;;
+  esac
+
+  shift
+done
+
+# If no arguments are provided, execute default actions
+if [[ $# -eq 0 ]]; then
+    default_start
 fi
