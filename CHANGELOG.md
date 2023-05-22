@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0-develop.2](https://github.com/cheqd/connector-telegram/compare/1.1.0-develop.1...1.1.0-develop.2) (2023-05-22)
+
+
+### Bug Fixes
+
+* Remove pnpm dependency on Semantic Release ([e988355](https://github.com/cheqd/connector-telegram/commit/e98835505c9ab975512afd7a92d1ee1b77592e2a))
+
 ## [1.1.0-develop.1](https://github.com/cheqd/connector-telegram/compare/1.0.3-develop.1...1.1.0-develop.1) (2023-05-22)
 
 
