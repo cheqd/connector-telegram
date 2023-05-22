@@ -22,7 +22,7 @@ default_actions() {
 # Alter the database
 alter_db() {
   if [[ -z $1 ]]; then
-    echo "Please provide a version number after -alter"
+    echo "Please provide a version number after --alter-db"
     exit 1
   fi
 
