@@ -12,7 +12,7 @@ echo "$DO_CA_CERT" | tee /usr/local/share/ca-certificates/do-cert.crt > /dev/nul
 update-ca-certificates
 
 # Default actions
-default_start() {
+default_actions() {
   echo "Executing default start"
 
   # Start LogTo
@@ -22,7 +22,7 @@ default_start() {
 # Alter the database
 alter_db() {
   if [[ -z $1 ]]; then
-    echo "Please provide a version number after --alter-db."
+    echo "Please provide a version number after -alter"
     exit 1
   fi
 
@@ -34,12 +34,16 @@ alter_db() {
   npx @logto/cli db alteration deploy "$version"
 }
 
+# Flag variables
+alter_db_flag=false
+
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
   key="$1"
 
   case $key in
     --alter-db)
+      alter_db_flag=true
       alter_db "$2"
       shift
       ;;
@@ -52,7 +56,8 @@ while [[ $# -gt 0 ]]; do
   shift
 done
 
-# If no arguments are provided, execute default actions
-if [[ $# -eq 0 ]]; then
-    default_start
+
+# Execute default actions if no flags are provided
+if not $alter_db_flag; then
+  default_actions
 fi
