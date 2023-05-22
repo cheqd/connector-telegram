@@ -75,12 +75,14 @@ jobs:
           load: true
           target: runner
           tags: ${{ steps.meta.outputs.tags }}
-          outputs: type=docker,dest=/tmp/logto.tar
           cache-from: type=gha
           cache-to: type=gha,mode=min
-
+      
+      - name: Save Docker image
+        run:  docker save ${{ env.IMAGE_NAME }} > logto-staging.tar
+      
       - name: Upload Docker test image
         uses: actions/upload-artifact@v3
         with:
-          name: logto-staging.tar
-          path: /tmp/logto-staging.tar
+          name: logto-staging
+          path: logto-staging.tar

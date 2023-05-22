@@ -27,7 +27,7 @@ jobs:
       - name: Download Docker image
         uses: actions/download-artifact@v3
         with:
-          name: logto-staging.tar
+          name: logto-staging
 
       - name: Load Docker image
         run: docker image load --input logto-staging.tar
