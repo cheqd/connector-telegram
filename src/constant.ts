@@ -1,5 +1,5 @@
 import type { ConnectorMetadata } from "@logto/connector-kit";
-import { ConnectorPlatform } from "@logto/connector-kit";
+import { ConnectorPlatform, ConnectorConfigFormItemType } from "@logto/connector-kit";
 
 export const authorizationEndpoint = "https://oauth.telegram.org/auth";
 // Scope is set to write because we might want to send the Bot a message at some point?
@@ -26,7 +26,22 @@ export const defaultMetadata: ConnectorMetadata = {
         ko: "Telegram은 보안과 속도에 중점을 둔 클라우드 기반 모바일 및 데스크톱 메시징 앱입니다.",
     },
     readme: "./README.md",
-    configTemplate: "./docs/config-template.json",
+    formItems: [
+        {
+            key: 'botToken',
+            type: ConnectorConfigFormItemType.Text,
+            required: true,
+            label: 'Telegram Bot Token',
+            placeholder: 'secret-value',
+        },
+        {
+            key: 'origin',
+            type: ConnectorConfigFormItemType.Text,
+            required: true,
+            label: 'Bot Origin',
+            placeholder: 'https://example.com',
+        }
+      ]
 };
 
 export const defaultTimeout = 5000;
