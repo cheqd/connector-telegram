@@ -58,6 +58,6 @@ done
 
 
 # Execute default actions if no flags are provided
-if not $alter_db_flag; then
+if ! $alter_db_flag; then
   default_actions
 fi
