@@ -21,7 +21,7 @@ RUN npm run build
 ###     STAGE 2: Build LogTo image with custom connector    ###
 ###############################################################
 
-FROM registry.digitalocean.com/cheqd/logto:1.0.3 as runner
+FROM ghcr.io/logto-io/logto:1.3.1 as runner
 
 # Set working directory
 WORKDIR /etc/logto
