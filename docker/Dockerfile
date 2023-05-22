@@ -31,13 +31,15 @@ RUN apk update && \
     apk add --no-cache bash ca-certificates
 
 # Copy files from builder
-COPY --from=builder /home/node/app /etc/logto/packages/core/connectors/connector-telegram
+COPY --from=builder /home/node/app /etc/logto/packages/connectors/connector-telegram
 
 # Add entrypoint script
 COPY docker/entrypoint.sh /etc/logto/entrypoint.sh
 
 # Make entrypoint script executable
-RUN chmod +x entrypoint.sh
+RUN chmod +x entrypoint.sh && \
+    # Create symlink from packages/core/connectors to packages/connectors
+    ln -s /etc/logto/packages/connectors/connector-telegram /etc/logto/packages/core/connectors/connector-telegram
 
 # Build-time arguments
 ARG NPM_CONFIG_LOGLEVEL=warn
