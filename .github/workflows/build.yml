@@ -34,7 +34,7 @@ jobs:
     name: "LogTo Docker image - Staging"
     runs-on: ubuntu-latest
     env:
-      IMAGE_NAME: registry.digitalocean.com/cheqd/logto
+      IMAGE_NAME: registry.digitalocean.com/cheqd/creds-auth
 
     steps:
       - uses: actions/checkout@v3
