@@ -28,8 +28,7 @@ WORKDIR /etc/logto
 
 # Install pre-requisites
 RUN apk update && \
-    apk add --no-cache bash ca-certificates sudo && \
-    echo "ALL ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+    apk add --no-cache bash ca-certificates
 
 # Copy files from builder
 COPY --from=builder /home/node/app /etc/logto/packages/core/connectors/@logto-connector-telegram
@@ -63,8 +62,7 @@ ENV NODE_EXTRA_CA_CERTS ${NODE_EXTRA_CA_CERTS}
 # Specify default port
 EXPOSE ${PORT} ${ADMIN_PORT}
 
-# Set user and shell
-USER node
+# Set shell
 SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 
 # Run the application
