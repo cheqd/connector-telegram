@@ -1,0 +1,36 @@
+name: "Deploy"
+on:
+  workflow_call:
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  deploy-staging:
+    name: "Staging Deploy"
+    runs-on: ubuntu-latest
+    env: 
+      IMAGE_NAME: registry.digitalocean.com/cheqd/creds-auth
+    environment: 
+      name: staging
+      url: https://admin-auth-staging.creds.xyz
+
+    steps:
+      - name: Install DigitalOcean CLI
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Login to DOCR
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Download Docker image
+        uses: actions/download-artifact@v3
+        with:
+          name: logto-staging.tar
+
+      - name: Load Docker image
+        run: docker image load --input logto-staging.tar
+
+      - name: Push staging image to DOCR
+        run: docker image push --all-tags ${{ env.IMAGE_NAME }}

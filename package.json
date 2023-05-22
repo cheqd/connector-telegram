@@ -21,7 +21,7 @@
   "type": "module",
   "files": [
     "lib",
-    "config"
+    "docs"
   ],
   "scripts": {
     "precommit": "lint-staged",

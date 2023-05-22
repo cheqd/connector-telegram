@@ -6,9 +6,11 @@ defaults:
     shell: bash
 
 jobs:
-  release:
+  release-node:
     name: "Semantic Release"
     runs-on: ubuntu-latest
+    outputs:
+      RELEASE_VERSION: ${{ steps.set-version.outputs.RELEASE_VERSION }}
     
     steps:
       - uses: actions/checkout@v3
@@ -39,3 +41,74 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Set release version number
+        id: set-version
+        run: |
+          RELEASE_VERSION=$( git describe --tags "${{ github.sha }}")
+          echo "RELEASE_VERSION=$RELEASE_VERSION" >> "$GITHUB_OUTPUT"
+
+  release-docker:
+    name: "Custom LogTo Docker image - Production"
+    runs-on: ubuntu-latest
+    needs: release-node
+    if: ${{ github.ref_name == 'main' }}
+    env:
+      IMAGE_NAME: registry.digitalocean.com/cheqd/creds-auth
+    environment: 
+      name: production
+      url: https://admin-auth.creds.xyz
+
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+        id: buildx
+        with:
+          install: true
+          version: latest
+
+      - name: Install DigitalOcean CLI
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Login to DigitalOcean Container Registry
+        run: doctl registry login --expiry-seconds 600
+
+      - name: Configure Docker image metadata
+        id: meta
+        uses: docker/metadata-action@v4
+        with:
+          images: ${{ env.IMAGE_NAME }}
+          flavor: |
+            latest=auto
+          tags: |
+            type=semver,pattern={{version}},value=${{ needs.release-node.outputs.RELEASE_VERSION }}
+            type=raw,value=production-latest
+            type=sha,format=long
+          labels: |
+            org.opencontainers.image.description="Custom LogTo Docker image"
+            org.opencontainers.image.source="https://github.com/cheqd/creds-auth"
+            org.opencontainers.image.vendor="Cheqd Foundation Limited"
+            org.opencontainers.image.created={{date 'dddd, MMMM Do YYYY, h:mm:ss a'}}
+            org.opencontainers.image.documentation="https://product.cheqd.io/"
+
+      - name: "Build LogTo image"
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: docker/Dockerfile
+          platforms: linux/amd64
+          load: true
+          target: runner
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=min
+
+      - name: Push Logto image
+        run: docker image push --all-tags ${{ env.IMAGE_NAME }}
