@@ -23,20 +23,13 @@ Once you've added this custom connector to LogTo (see *Developer Guide*) below, 
 
 ### Use with LogTo
 
-To use this connector with LogTo, copy this source tree into a new folder [under `packages/connectors/connectors-telegram` on a copy of the LogTo repository](https://github.com/logto-io/logto/tree/master/packages/connectors).
+To use this connector with LogTo, copy the NPM package contents into a new folder [under `packages/connectors/connectors-telegram` on a copy of the LogTo repository](https://github.com/logto-io/logto/tree/master/packages/connectors) or the LogTo Docker image.
 
-You can then use `pnpm` to build the whole project at the top level of the LogTo repo (this will do a recursive build):
-
-```bash
-pnpm install
-pnpm build
-```
-
-Or, build *just* this project as a library using NPM:
+You can build just this library using:
 
 ```bash
 npm install
-npm build
+npm run build
 ```
 
 ## 💬 Community

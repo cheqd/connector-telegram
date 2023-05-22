@@ -20,8 +20,7 @@
   "exports": "./lib/index.js",
   "type": "module",
   "files": [
-    "lib",
-    "docs"
+    "lib"
   ],
   "scripts": {
     "precommit": "lint-staged",
