@@ -1,0 +1,11 @@
+# Skip unncecessary folders
+node_modules/**
+.github/**
+docker/**
+
+# Skip unnecessary files
+**/*.md
+
+# Exceptions
+!docker/entrypoint.sh
+!README.md

@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.1.0-develop.2](https://github.com/cheqd/connector-telegram/compare/1.1.0-develop.1...1.1.0-develop.2) (2023-05-22)
+
+
+### Bug Fixes
+
+* Remove pnpm dependency on Semantic Release ([e988355](https://github.com/cheqd/connector-telegram/commit/e98835505c9ab975512afd7a92d1ee1b77592e2a))
+
+## [1.1.0-develop.1](https://github.com/cheqd/connector-telegram/compare/1.0.3-develop.1...1.1.0-develop.1) (2023-05-22)
+
+
+### Features
+
+* Bump Logto base image to 1.3.1 [DEV-2641] ([#53](https://github.com/cheqd/connector-telegram/issues/53)) ([74d41c2](https://github.com/cheqd/connector-telegram/commit/74d41c2b93c07622a06395b341d08445fdd04512))
+* Standalone NPM package release ([#28](https://github.com/cheqd/connector-telegram/issues/28)) ([fd55425](https://github.com/cheqd/connector-telegram/commit/fd55425fbc32197ee1041a5985048f213c8f1ef9))
+
+
+### Bug Fixes
+
+* BotId extraction from BotToken ([b3afe34](https://github.com/cheqd/connector-telegram/commit/b3afe34b249e2b51738f17b63387dd8995c914b4))
+* Validate response using Telegram integrity check ([ae8105f](https://github.com/cheqd/connector-telegram/commit/ae8105fa3e0ee724545b6922a89a143fe87b50dc))
+
 ## [@cheqd/connector-telegram-v1.0.3-develop.1](https://github.com/cheqd/connector-telegram/compare/1.0.2...1.0.3-develop.1) (2023-04-13)
 
 

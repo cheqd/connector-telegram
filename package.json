@@ -1,6 +1,6 @@
 {
   "name": "@cheqd/connector-telegram",
-  "version": "1.0.2-develop.6",
+  "version": "1.1.0-develop.2",
   "description": "Telegram OAuth connector for LogTo",
   "author": "Cheqd Foundation Limited (https://github.com/cheqd)",
   "license": "Apache-2.0",
@@ -20,8 +20,7 @@
   "exports": "./lib/index.js",
   "type": "module",
   "files": [
-    "lib",
-    "config"
+    "lib"
   ],
   "scripts": {
     "precommit": "lint-staged",
@@ -29,26 +28,24 @@
     "build": "rm -rf lib/ && tsc -p tsconfig.build.json --noEmit && rollup -c",
     "dev": "tsc -p tsconfig.build.json --watch --preserveWatchOutput --incremental",
     "lint": "eslint --ext .ts src",
-    "lint:report": "pnpm lint --format json --output-file report.json",
-    "test": "pnpm build:test && NODE_OPTIONS=--experimental-vm-modules jest",
-    "test:coverage": "pnpm run test --coverage --silent",
-    "prepack": "pnpm build",
-    "version": "pnpm package:update"
+    "lint:report": "npm lint --format json --output-file report.json",
+    "test": "npm build:test && NODE_OPTIONS=--experimental-vm-modules jest",
+    "test:coverage": "npm run test --coverage --silent"
   },
   "dependencies": {
     "@logto/connector-kit": "1.1.1",
     "@silverhand/essentials": "2.6.2",
-    "got": "^12.5.3",
-    "snakecase-keys": "^5.1.0",
-    "zod": "^3.20.2"
+    "got": "^12.6.0",
+    "snakecase-keys": "^5.4.5",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@jest/types": "^29.3.1",
-    "@rollup/plugin-commonjs": "^24.0.0",
+    "@jest/types": "^29.5.0",
+    "@rollup/plugin-commonjs": "^25.0.0",
     "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.1",
-    "@rollup/plugin-typescript": "^11.1.0",
-    "@semantic-release/changelog": "^6.0.2",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "@rollup/plugin-typescript": "^11.1.1",
+    "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^9.0.2",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^8.0.7",
@@ -57,20 +54,20 @@
     "@silverhand/eslint-config": "3.0.1",
     "@silverhand/jest-config": "3.0.0",
     "@silverhand/ts-config": "^3.0.0",
-    "@types/jest": "^29.2.4",
-    "@types/node": "^20.1.4",
-    "@types/supertest": "^2.0.11",
+    "@types/jest": "^29.5.1",
+    "@types/node": "^20.2.3",
+    "@types/supertest": "^2.0.12",
     "conventional-changelog-conventionalcommits": "^5.0.0",
-    "eslint": "^8.40.0",
-    "jest": "^29.3.1",
+    "eslint": "^8.41.0",
+    "jest": "^29.5.0",
     "jest-matcher-specific-error": "^1.0.0",
-    "lint-staged": "^13.0.0",
-    "nock": "^13.2.2",
+    "lint-staged": "^13.2.2",
+    "nock": "^13.3.1",
     "prettier": "^2.8.8",
-    "rollup": "^3.21.8",
+    "rollup": "^3.23.0",
     "rollup-plugin-summary": "^2.0.0",
     "semantic-release": "^21.0.2",
-    "supertest": "^6.2.2",
+    "supertest": "^6.3.3",
     "typescript": "^5.0.4"
   },
   "engines": {
