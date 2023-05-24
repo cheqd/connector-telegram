@@ -23,6 +23,9 @@ RUN npm run build
 
 FROM ghcr.io/logto-io/logto:1.3.1 as runner
 
+# Set Node.js environment
+ENV NODE_ENV=production
+
 # Set working directory
 WORKDIR /etc/logto
 
@@ -30,11 +33,16 @@ WORKDIR /etc/logto
 RUN apk update && \
     apk add --no-cache bash ca-certificates
 
-# Copy files from builder
-COPY --from=builder /home/node/app /etc/logto/packages/connectors/connector-telegram
-
 # Add entrypoint script
 COPY docker/entrypoint.sh /etc/logto/entrypoint.sh
+
+# Copy files from builder
+COPY --from=builder /home/node/app/package*.json /home/node/app/*.svg /etc/logto/packages/connectors/connector-telegram/
+COPY --from=builder /home/node/app/lib/ /etc/logto/packages/connectors/connector-telegram/lib/
+
+# Install dependencies
+RUN cd /etc/logto/packages/connectors/connector-telegram/ && \
+    npm ci
 
 # Make entrypoint script executable
 RUN chmod +x entrypoint.sh && \
