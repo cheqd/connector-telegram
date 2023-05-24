@@ -37,7 +37,7 @@ RUN apk update && \
 COPY docker/entrypoint.sh /etc/logto/entrypoint.sh
 
 # Copy files from builder
-COPY --from=builder /home/node/app/package*.json /home/node/app/*.svg /etc/logto/packages/connectors/connector-telegram/
+COPY --from=builder /home/node/app/package*.json /home/node/app/*.svg /home/node/app/*.md /etc/logto/packages/connectors/connector-telegram/
 COPY --from=builder /home/node/app/lib/ /etc/logto/packages/connectors/connector-telegram/lib/
 
 # Install dependencies
