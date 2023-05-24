@@ -1,9 +1,9 @@
 # Skip unncecessary folders
-.git/**
-.github/**
-node_modules/**
-docker/**
-lib/**
+**/.git/
+**/.github/
+**/node_modules/
+**/docker/
+**/lib/
 
 # Skip unnecessary files
 **/*.md
