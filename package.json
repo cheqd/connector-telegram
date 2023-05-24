@@ -20,7 +20,11 @@
   "exports": "./lib/index.js",
   "type": "module",
   "files": [
-    "lib"
+    "lib",
+    "**/*.svg",
+    "LICENSE",
+    "package.json",
+    "README.md"
   ],
   "scripts": {
     "precommit": "lint-staged",
