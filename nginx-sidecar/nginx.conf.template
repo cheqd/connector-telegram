@@ -1,0 +1,137 @@
+# A single worker is enough for load balancing and reverse proxing.
+# While disk I/O can block an nginx worker, it's possible to enable
+# async read and send for static files.
+#
+worker_processes     auto;
+worker_rlimit_nofile 65535;
+
+# The limit on the maximum number of open files for worker processes.
+# This overrides the OS limit for the user the workers run as:
+#   ulimit -a | grep 'open files'
+#
+# This value must be equal or higher than the worker_connections value.
+#
+
+# Log to stdout.
+# Use the stdout of init on Docker to get the logs to the log drain.
+#
+  error_log /proc/1/fd/1 warn;
+
+pid /var/run/nginx.pid;
+
+events {
+  # The maximum number of simultaneous connections that can be
+  # opened by a worker process. This limit is shared between
+  # client connections and upstream connections.
+  #
+  worker_connections 4096;
+
+  # "on" if nginx worker_processes > 1
+  #
+  accept_mutex off;
+}
+
+
+http {
+  charset                utf-8;
+  sendfile               on;
+  tcp_nopush             on;
+  tcp_nodelay            on;
+  server_tokens          off;
+  log_not_found          off;
+  types_hash_max_size    2048;
+  types_hash_bucket_size 64;
+  client_max_body_size   16M;
+
+  # MIME
+  include /etc/nginx/mime.types;
+  default_type application/octet-stream;
+
+  log_format  main  '[nginx] method=$request_method request=$request path=$request_uri '
+                    'status=$status upstream_status=$upstream_status duration=$request_time size=$body_bytes_sent '
+                    '$remote_user $http_referer $http_user_agent upstream_addr=$upstream_addr';
+
+  # Log to stdout.
+  # Use the stdout of init on Docker to get the logs to the log drain.
+  #
+  access_log /proc/1/fd/1 main;
+
+  keepalive_timeout 20s; # default 75s
+
+  gzip on;
+  gzip_http_version 1.0;
+  gzip_proxied any;
+  gzip_disable "MSIE [1-6]\.";
+  gzip_types text/plain text/css text/xml application/json application/javascript application/rss+xml application/atom+xml image/svg+xml;
+
+
+  # Proxy timeouts
+  proxy_connect_timeout 60;
+  proxy_send_timeout <PROXY_TIMEOUT>;
+  proxy_read_timeout <PROXY_TIMEOUT>;
+
+  # According to the HTTP standard, headers with underscores are perfectly valid.
+  # However, nginx defaults to dropping headers containing underscores, as they
+  # might introduce ambiguities when mapping headers to CGI variables.
+  #
+
+  underscores_in_headers on;
+
+  server {
+    listen 80;
+    server_name <API_ENDPOINT>;
+
+    dav_methods PUT DELETE;
+    
+    if ($request_method !~ ^(GET|POST|HEAD|PUT|DELETE|PATCH|OPTIONS)$) {
+      return 405;
+    }
+
+    location / {
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto https;
+
+      proxy_pass http://logto-app:<API_PORT>;
+      proxy_redirect off;
+    }
+
+    location = /favicon.ico {
+      log_not_found off;
+    }
+
+    location = /robots.txt {
+      log_not_found off;
+    }
+  }
+
+  server {
+    listen 80;
+    server_name <ADMIN_ENDPOINT>;
+
+    dav_methods PUT DELETE;
+    
+    if ($request_method !~ ^(GET|POST|HEAD|PUT|DELETE|PATCH|OPTIONS)$) {
+      return 405;
+    }
+
+    location / {
+      proxy_set_header Host $host;
+      proxy_set_header X-Real-IP $remote_addr;
+      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+      proxy_set_header X-Forwarded-Proto https;
+      
+      proxy_pass http://logto-app:<ADMIN_PORT>;
+      proxy_redirect off;
+    }
+
+    location = /favicon.ico {
+      log_not_found off;
+    }
+
+    location = /robots.txt {
+      log_not_found off;
+    }
+  }
+}
