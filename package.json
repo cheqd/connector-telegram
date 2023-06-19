@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@logto/connector-kit": "1.1.1",
-    "@silverhand/essentials": "2.6.2",
+    "@silverhand/essentials": "2.7.0",
     "got": "^13.0.0",
     "snakecase-keys": "^5.4.5",
     "zod": "^3.21.4"
