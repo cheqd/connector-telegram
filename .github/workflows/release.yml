@@ -54,7 +54,7 @@ jobs:
     needs: release-node
     if: ${{ github.ref_name == 'main' }}
     env:
-      IMAGE_NAME: registry.digitalocean.com/cheqd/creds-auth
+      IMAGE_NAME: cheqd/creds-auth
     environment: 
       name: production
       url: https://admin-auth.creds.xyz
@@ -78,12 +78,21 @@ jobs:
 
       - name: Login to DigitalOcean Container Registry
         run: doctl registry login --expiry-seconds 600
+      
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Configure Docker image metadata
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: ${{ env.IMAGE_NAME }}
+          images: |
+            ghcr.io/${{ env.IMAGE_NAME }}
+            registry.digitalocean.com/${{ env.IMAGE_NAME }}
           flavor: |
             latest=auto
           tags: |
@@ -110,5 +119,9 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=min
 
-      - name: Push Logto image
-        run: docker image push --all-tags ${{ env.IMAGE_NAME }}
+      - name: Push image to GitHub Container Registry
+        run: docker image push --all-tags ghcr.io/${{ env.IMAGE_NAME }}
+  
+      - name: Push image to DigitalOcean Container Registry
+        run: docker image push --all-tags registry.digitalocean.com/${{ env.IMAGE_NAME }}
+   
