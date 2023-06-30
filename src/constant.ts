@@ -42,8 +42,9 @@ export const defaultMetadata: ConnectorMetadata = {
     },
     {
       key: 'replaceCallbackURIDomain',
-      type: ConnectorConfigFormItemType.Text,
+      type: ConnectorConfigFormItemType.Switch,
       required: false,
+      defaultValue: false,
       label: 'Replace Callback URI with Bot Origin?',
       placeholder: 'false',
     },
