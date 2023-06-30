@@ -37,10 +37,12 @@ const getAuthorizationUri =
     // Reconstruct the return_to url
     // eslint-disable-next-line
     let returnTo = new URL(redirectUri);
+    console.log('returnTo-init:', returnTo);
 
     if (config.replaceCallbackURIDomain) {
       // eslint-disable-next-line
       returnTo = new URL(returnTo.pathname, config.origin);
+      console.log('returnTo-replaced:', returnTo);
     }
 
     // Append state to return_to url
@@ -53,6 +55,7 @@ const getAuthorizationUri =
       request_access: scope,
       return_to: returnTo.toString(),
     });
+    console.log('queryParameters:', queryParameters.toString());
     return `${authorizationEndpoint}?${queryParameters.toString()}`;
   };
 
