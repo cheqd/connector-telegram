@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.1-develop.4](https://github.com/cheqd/connector-telegram/compare/1.1.1-develop.3...1.1.1-develop.4) (2023-06-30)
+
+
+### Bug Fixes
+
+* Add replace Callback URI Domain parameter ([#78](https://github.com/cheqd/connector-telegram/issues/78)) ([8e49758](https://github.com/cheqd/connector-telegram/commit/8e49758b8fd3a6aebef9a384233a10104c08f4a9))
+* Connector config opt replaceCallbackURIDomain ([#79](https://github.com/cheqd/connector-telegram/issues/79)) ([230665b](https://github.com/cheqd/connector-telegram/commit/230665ba8b8242c39bce475a6f1340ca80a8feeb))
+
 ## [1.1.2](https://github.com/cheqd/connector-telegram/compare/1.1.1...1.1.2) (2023-05-30)
 
 ## [1.1.1-develop.3](https://github.com/cheqd/connector-telegram/compare/1.1.1-develop.2...1.1.1-develop.3) (2023-06-29)
