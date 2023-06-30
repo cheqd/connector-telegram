@@ -55,8 +55,12 @@ const getAuthorizationUri =
       request_access: scope,
       return_to: returnTo.toString(),
     });
-    console.log('queryParameters:', queryParameters.toString());
-    return `${authorizationEndpoint}?${queryParameters.toString()}`;
+
+    // eslint-disable-next-line
+    let returnUri = `${authorizationEndpoint}?${queryParameters.toString()}`;
+    console.log('returnUri:', returnUri);
+    return returnUri;
+    // return `${authorizationEndpoint}?${queryParameters.toString()}`;
   };
 
 const authorizationCallbackHandler = async (parameterObject: unknown) => {
