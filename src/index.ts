@@ -35,11 +35,7 @@ const getAuthorizationUri =
     }
 
     // Reconstruct the return_to url
-
-    // const returnTo = '';
-    // if (!config.replaceCallbackDomain) {
-    // }
-
+    // eslint-disable-next-line @silverhand/fp/no-let
     let returnTo = new URL(redirectUri);
     if (config.replaceCallbackURIDomain) {
       // eslint-disable-next-line @silverhand/fp/no-mutation
