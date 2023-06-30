@@ -38,7 +38,7 @@ const getAuthorizationUri =
     // eslint-disable-next-line @silverhand/fp/no-let
     let returnTo = new URL(redirectUri);
     if (config.replaceCallbackURIDomain) {
-      // eslint-disable-next-line @silverhand/fp/no-mutation
+      // eslint-disable-next-line
       returnTo = new URL(returnTo.pathname, config.origin);
     }
 
