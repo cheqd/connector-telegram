@@ -37,7 +37,7 @@ const getAuthorizationUri =
     // Reconstruct the return_to url
     // eslint-disable-next-line
     let returnTo = new URL(redirectUri);
-    
+
     if (config.replaceCallbackURIDomain) {
       // eslint-disable-next-line
       returnTo = new URL(returnTo.pathname, config.origin);
@@ -71,6 +71,7 @@ const performTelegramIntegrityCheck = (
   botToken: string
 ): boolean => {
   const fields: string[] = [];
+  console.log('telegramResponse:', telegramResponse);
   for (const key of Object.keys(telegramResponse)) {
     if (key === 'hash') {
       continue;
@@ -80,17 +81,21 @@ const performTelegramIntegrityCheck = (
     fields.push(field);
   }
   const data = fields.sort().join('\n');
+  console.log('telegramResponse-data:', data);
 
   const botSecretKey = createHash('sha256').update(Buffer.from(botToken)).digest();
   const dataHash = createHmac('sha256', botSecretKey).update(data).digest('hex');
+  console.log('telegramResponse-dataHash:', dataHash);
   return dataHash === telegramResponse.hash;
 };
 
 const getUserInfo =
   (getConfig: GetConnectorConfig): GetUserInfo =>
   async (data) => {
+    console.log('getUserInfo:', data);
     // Get tgAuthResult from parameterObject
     const { tgAuthResult } = await authorizationCallbackHandler(data);
+    console.log('tgAuthResult:', tgAuthResult);
 
     // Get config
     const config = await getConfig(defaultMetadata.id);
