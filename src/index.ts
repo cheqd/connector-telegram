@@ -40,9 +40,8 @@ const getAuthorizationUri =
     // if (!config.replaceCallbackDomain) {
     // }
 
-    // eslint-disable-next-line @silverhand/fp/no-let
     let returnTo = new URL(redirectUri);
-    if (config.replaceCallbackDomain) {
+    if (config.replaceCallbackURIDomain) {
       // eslint-disable-next-line @silverhand/fp/no-mutation
       returnTo = new URL(returnTo.pathname, config.origin);
     }
@@ -71,15 +70,15 @@ const authorizationCallbackHandler = async (parameterObject: unknown) => {
 };
 
 const performTelegramIntegrityCheck = (
-  telegramRepsonse: Record<string, unknown>,
+  telegramResponse: Record<string, unknown>,
   botToken: string
 ): boolean => {
   const fields: string[] = [];
-  for (const key of Object.keys(telegramRepsonse)) {
+  for (const key of Object.keys(telegramResponse)) {
     if (key === 'hash') {
       continue;
     }
-    const value = String(telegramRepsonse[key]);
+    const value = String(telegramResponse[key]);
     const field = key + '=' + value;
     fields.push(field);
   }
@@ -87,7 +86,7 @@ const performTelegramIntegrityCheck = (
 
   const botSecretKey = createHash('sha256').update(Buffer.from(botToken)).digest();
   const dataHash = createHmac('sha256', botSecretKey).update(data).digest('hex');
-  return dataHash === telegramRepsonse.hash;
+  return dataHash === telegramResponse.hash;
 };
 
 const getUserInfo =

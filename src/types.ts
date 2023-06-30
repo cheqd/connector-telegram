@@ -3,7 +3,7 @@ import { z } from 'zod';
 export const telegramConfigGuard = z.object({
   botToken: z.string(),
   origin: z.string(),
-  replaceCallbackDomain: z.boolean().default(false),
+  replaceCallbackURIDomain: z.boolean().default(false),
 });
 
 export type TelegramConfig = z.infer<typeof telegramConfigGuard>;

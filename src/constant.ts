@@ -41,11 +41,11 @@ export const defaultMetadata: ConnectorMetadata = {
       placeholder: 'https://example.com',
     },
     {
-      key: 'replaceCallbackDomain',
-      type: ConnectorConfigFormItemType.Switch,
+      key: 'replaceCallbackURIDomain',
+      type: ConnectorConfigFormItemType.Text,
       required: false,
-      label: 'Telegram Redirect to param (must not be a .xyz domain)',
-      placeholder: 'https://example.com',
+      label: 'Replace Callback URI with Bot Origin?',
+      placeholder: 'false',
     },
   ],
 };
