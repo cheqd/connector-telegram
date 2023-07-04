@@ -57,7 +57,7 @@ jobs:
       IMAGE_NAME: cheqd/creds-auth
     environment: 
       name: production
-      url: https://admin-auth.creds.xyz
+      url: https://admin-auth.creds.zone
 
     steps:
       - uses: actions/checkout@v3

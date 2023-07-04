@@ -13,7 +13,7 @@ jobs:
       IMAGE_NAME: cheqd/creds-auth
     environment: 
       name: staging
-      url: https://admin-auth-staging.creds.xyz
+      url: https://admin-auth-staging.creds.zone
 
     steps:
       - name: Install DigitalOcean CLI
