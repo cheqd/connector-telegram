@@ -35,15 +35,7 @@ const getAuthorizationUri =
     }
 
     // Reconstruct the return_to url
-    // eslint-disable-next-line
-    let returnTo = new URL(redirectUri);
-    console.log('returnTo-init:', returnTo);
-
-    if (config.replaceCallbackURIDomain) {
-      // eslint-disable-next-line
-      returnTo = new URL(returnTo.pathname, config.origin);
-      console.log('returnTo-replaced:', returnTo);
-    }
+    const returnTo = new URL(redirectUri);
 
     // Append state to return_to url
     returnTo.searchParams.set('state', state);
@@ -56,17 +48,11 @@ const getAuthorizationUri =
       return_to: returnTo.toString(),
     });
 
-    // eslint-disable-next-line
-    let returnUri = `${authorizationEndpoint}?${queryParameters.toString()}`;
-    console.log('returnUri:', returnUri);
-    return returnUri;
-    // return `${authorizationEndpoint}?${queryParameters.toString()}`;
+    return `${authorizationEndpoint}?${queryParameters.toString()}`;
   };
 
 const authorizationCallbackHandler = async (parameterObject: unknown) => {
-  console.log('authorizationCallbackHandler-parameterObject:', parameterObject);
   const result = authResponseGuard.safeParse(parameterObject);
-  console.log('authorizationCallbackHandler-result:', result);
 
   if (!result.success) {
     throw new ConnectorError(ConnectorErrorCodes.General, JSON.stringify(parameterObject));
@@ -80,7 +66,6 @@ const performTelegramIntegrityCheck = (
   botToken: string
 ): boolean => {
   const fields: string[] = [];
-  console.log('telegramResponse:', telegramResponse);
   for (const key of Object.keys(telegramResponse)) {
     if (key === 'hash') {
       continue;
@@ -90,21 +75,17 @@ const performTelegramIntegrityCheck = (
     fields.push(field);
   }
   const data = fields.sort().join('\n');
-  console.log('telegramResponse-data:', data);
 
   const botSecretKey = createHash('sha256').update(Buffer.from(botToken)).digest();
   const dataHash = createHmac('sha256', botSecretKey).update(data).digest('hex');
-  console.log('telegramResponse-dataHash:', dataHash);
   return dataHash === telegramResponse.hash;
 };
 
 const getUserInfo =
   (getConfig: GetConnectorConfig): GetUserInfo =>
   async (data) => {
-    console.log('getUserInfo:', data);
     // Get tgAuthResult from parameterObject
     const { tgAuthResult } = await authorizationCallbackHandler(data);
-    console.log('tgAuthResult:', tgAuthResult);
 
     // Get config
     const config = await getConfig(defaultMetadata.id);
