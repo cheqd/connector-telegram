@@ -31,6 +31,7 @@ export const defaultMetadata: ConnectorMetadata = {
       type: ConnectorConfigFormItemType.Text,
       required: true,
       label: 'Telegram Bot Token',
+      isConfidential: true,
       placeholder: 'secret-value',
     },
     {
@@ -39,14 +40,6 @@ export const defaultMetadata: ConnectorMetadata = {
       required: true,
       label: 'Bot Origin',
       placeholder: 'https://example.com',
-    },
-    {
-      key: 'replaceCallbackURIDomain',
-      type: ConnectorConfigFormItemType.Switch,
-      required: false,
-      defaultValue: false,
-      label: 'Replace Callback URI with Bot Origin?',
-      placeholder: 'false',
     },
   ],
 };
