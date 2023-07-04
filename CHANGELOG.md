@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1-develop.5](https://github.com/cheqd/connector-telegram/compare/1.1.1-develop.4...1.1.1-develop.5) (2023-07-04)
+
+
+### Bug Fixes
+
+* Callback uri replacement toggle - [DEV-2913] ([#83](https://github.com/cheqd/connector-telegram/issues/83)) ([e957d45](https://github.com/cheqd/connector-telegram/commit/e957d4571f3288fd98b21c9b3a5a1c378c675018))
+
 ## [1.1.1-develop.4](https://github.com/cheqd/connector-telegram/compare/1.1.1-develop.3...1.1.1-develop.4) (2023-06-30)
 
 
