@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.4-develop.1](https://github.com/cheqd/connector-telegram/compare/1.1.3...1.1.4-develop.1) (2023-07-14)
+
+
+### Bug Fixes
+
+* Re-arrange username + handle [DEV-2435] ([#89](https://github.com/cheqd/connector-telegram/issues/89)) ([425a7be](https://github.com/cheqd/connector-telegram/commit/425a7bebf0cfeb5d17f33962d065d0fe269f9883))
+
 ## [1.1.3](https://github.com/cheqd/connector-telegram/compare/1.1.2...1.1.3) (2023-07-04)
 
 
