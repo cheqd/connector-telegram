@@ -113,8 +113,8 @@ const getUserInfo =
     return {
       id: String(parsed.data.id),
       avatar: parsed.data.photo_url || '',
-      username: parsed.data.username || '',
-      name: `${parsed.data.first_name} ${parsed.data.last_name}`.trim() || '',
+      name: parsed.data.username || '',
+      displayName: `${parsed.data.first_name} ${parsed.data.last_name}`.trim() || '',
     };
   };
 
