@@ -17,7 +17,7 @@ Once you've added this custom connector to LogTo (see *Developer Guide*) below, 
 1. [Register a new Telegram bot](https://core.telegram.org/bots#3-how-do-i-create-a-bot) using the [`@Botfather` Telegram bot](https://t.me/botfather).
 2. Send the `/setdomain` message to `@Botfather` to set a public redirect URI for the bot.
    1. Telegram expects this domain to be **publicly-routable**. Therefore, trying to specify this as `localhost` or a non-public domain name doesn't work.
-3. Copy the Bot Token and the Bot Domain. These credentials need to be [set in your LogTo admin dashboard](https://docs.logto.io/docs/recipes/configure-connectors/configure-social-connector) to configure and activate the connector.
+3. Copy the Bot Token and the Bot Domain. These credentials need to be [set in your LogTo admin dashboard](https://docs.logto.io/docs/recipes/configure-connectors/social-connector/) to configure and activate the connector.
 
 ## 🧑‍💻 Developer Guide
 
