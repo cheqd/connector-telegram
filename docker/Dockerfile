@@ -21,7 +21,7 @@ RUN npm run build
 ###     STAGE 2: Build LogTo image with custom connector    ###
 ###############################################################
 
-FROM ghcr.io/logto-io/logto:1.6.0 as runner
+FROM ghcr.io/logto-io/logto:1.8.0 as runner
 
 # Set Node.js environment
 ENV NODE_ENV=production
