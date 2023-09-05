@@ -68,7 +68,7 @@
     "lint-staged": "^13.2.3",
     "nock": "^13.3.2",
     "prettier": "^2.8.8",
-    "rollup": "^3.27.0",
+    "rollup": "^3.28.1",
     "rollup-plugin-summary": "^2.0.0",
     "semantic-release": "^21.0.7",
     "supertest": "^6.3.3",
