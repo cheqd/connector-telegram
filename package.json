@@ -41,7 +41,7 @@
     "@silverhand/essentials": "2.8.4",
     "got": "^13.0.0",
     "snakecase-keys": "^5.4.6",
-    "zod": "^3.21.4"
+    "zod": "^3.22.2"
   },
   "devDependencies": {
     "@jest/types": "^29.6.1",
@@ -52,8 +52,8 @@
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/commit-analyzer": "^10.0.1",
     "@semantic-release/git": "^10.0.1",
-    "@semantic-release/github": "^9.0.4",
-    "@semantic-release/npm": "^10.0.4",
+    "@semantic-release/github": "^9.0.5",
+    "@semantic-release/npm": "^10.0.5",
     "@semantic-release/release-notes-generator": "^11.0.4",
     "@silverhand/eslint-config": "3.0.1",
     "@silverhand/jest-config": "4.0.0",
