@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6-develop.1](https://github.com/cheqd/connector-telegram/compare/1.1.5...1.1.6-develop.1) (2023-09-26)
+
+
+### Bug Fixes
+
+* Bump jest and @types/jest ([#133](https://github.com/cheqd/connector-telegram/issues/133)) ([a7ba44d](https://github.com/cheqd/connector-telegram/commit/a7ba44dd3ec9a29f7cbce1b7a36b64339dea1c3a))
+
 ## [1.1.5](https://github.com/cheqd/connector-telegram/compare/1.1.4...1.1.5) (2023-09-25)
 
 ## [1.1.5-develop.1](https://github.com/cheqd/connector-telegram/compare/1.1.4...1.1.5-develop.1) (2023-09-25)
