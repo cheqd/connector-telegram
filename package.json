@@ -42,7 +42,7 @@
     "@silverhand/essentials": "2.8.4",
     "got": "^13.0.0",
     "snakecase-keys": "^5.4.7",
-    "zod": "^3.22.2"
+    "zod": "^3.22.3"
   },
   "devDependencies": {
     "@jest/types": "^29.6.1",
