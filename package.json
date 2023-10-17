@@ -60,7 +60,7 @@
     "@silverhand/jest-config": "4.0.0",
     "@silverhand/ts-config": "^4.0.0",
     "@types/jest": "^29.5.5",
-    "@types/node": "^20.5.9",
+    "@types/node": "^20.8.6",
     "@types/supertest": "^2.0.12",
     "conventional-changelog-conventionalcommits": "^7.0.2",
     "eslint": "^8.50.0",
