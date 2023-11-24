@@ -8,7 +8,7 @@
 
 ## ℹ️ Overview
 
-This NPM package is [a custom OAuth connector designed for LogTo](https://docs.logto.io/docs/recipes/create-your-connector/) for use with [Telegram](https://core.telegram.org/api). [LogTo](https://logto.io/) is [an open-source identity management software](https://docs.logto.io/) with out-of-the-box support for many social connectors, and allows custom connectors to be created.
+This NPM package is [a custom OAuth connector designed for LogTo](https://docs.logto.io/docs/recipes/configure-connectors/create-your-connector/) for use with [Telegram](https://core.telegram.org/api). [LogTo](https://logto.io/) is [an open-source identity management software](https://docs.logto.io/) with out-of-the-box support for many social connectors, and allows custom connectors to be created.
 
 ## 🛠️ Configuration
 
