@@ -1,5 +1,7 @@
 # Changelog
 
+## [1.2.1-develop.1](https://github.com/cheqd/connector-telegram/compare/1.2.0...1.2.1-develop.1) (2023-11-24)
+
 ## [1.2.0](https://github.com/cheqd/connector-telegram/compare/1.1.8...1.2.0) (2023-11-08)
 
 
