@@ -73,7 +73,7 @@ jobs:
           cache-to: type=gha,mode=min
       
       - name: Upload Docker test image
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: logto-staging
           path: logto-staging.tar
