@@ -38,7 +38,7 @@
     "test:coverage": "npm run test --coverage --silent"
   },
   "dependencies": {
-    "@logto/connector-kit": "1.1.1",
+    "@logto/connector-kit": "3.0.0",
     "@silverhand/essentials": "2.8.4",
     "got": "^13.0.0",
     "snakecase-keys": "^5.5.0",

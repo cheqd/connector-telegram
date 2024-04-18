@@ -2,7 +2,7 @@
 ###       STAGE 1: Build custom connector for Telegram      ###
 ###############################################################
 
-FROM node:18-alpine as builder
+FROM node:20-alpine as builder
 
 # Set working directory & bash defaults
 WORKDIR /home/node/app
@@ -21,7 +21,7 @@ RUN npm run build
 ###     STAGE 2: Build LogTo image with custom connector    ###
 ###############################################################
 
-FROM svhd/logto:1.10.0 as runner
+FROM svhd/logto:1.15.0 as runner
 
 # Set Node.js environment
 ENV NODE_ENV=production
