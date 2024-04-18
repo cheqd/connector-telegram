@@ -16,7 +16,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
           cache: 'npm'
     
       - name: "Clean install dependencies"
@@ -73,7 +73,7 @@ jobs:
           cache-to: type=gha,mode=min
       
       - name: Upload Docker test image
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: logto-staging
           path: logto-staging.tar
