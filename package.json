@@ -57,7 +57,7 @@
     "@semantic-release/npm": "^11.0.3",
     "@semantic-release/release-notes-generator": "^12.1.0",
     "@silverhand/eslint-config": "3.0.1",
-    "@silverhand/jest-config": "4.0.0",
+    "@silverhand/jest-config": "5.0.0",
     "@silverhand/ts-config": "^4.0.0",
     "@types/jest": "^29.5.12",
     "@types/node": "^20.12.7",
