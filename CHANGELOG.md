@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.3.0](https://github.com/cheqd/connector-telegram/compare/1.2.1...1.3.0) (2024-05-23)
+
+
+### Features
+
+* Bump LogTo version to 1.16 ([#191](https://github.com/cheqd/connector-telegram/issues/191)) ([0ae6ed5](https://github.com/cheqd/connector-telegram/commit/0ae6ed5cc049b612a61246bb4f526d764e04b840))
+* Bump LogTo version to v1.15.0, SDK to v3 [DEV-3850] ([#179](https://github.com/cheqd/connector-telegram/issues/179)) ([fe90a5e](https://github.com/cheqd/connector-telegram/commit/fe90a5e91494684810bd301bfdd7b70eff7ddb28))
+
 ## [1.3.0-develop.2](https://github.com/cheqd/connector-telegram/compare/1.3.0-develop.1...1.3.0-develop.2) (2024-05-22)
 
 
