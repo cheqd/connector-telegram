@@ -21,7 +21,7 @@ RUN npm run build
 ###     STAGE 2: Build LogTo image with custom connector    ###
 ###############################################################
 
-FROM svhd/logto:1.16.0 as runner
+FROM svhd/logto:1.17.0 as runner
 
 # Set Node.js environment
 ENV NODE_ENV=production
